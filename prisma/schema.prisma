@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Club {
+  id         Int                 @id @default(autoincrement())
+  name String @unique()
+  createdAt DateTime @default(now()) 
+  messages Message[]
+  userClub UserClub[]
+  post Post[]
+}
+model User{
+  id Int @id @default(autoincrement())
+  mailId String @unique()
+  password String
+  name String
+  messages Message[]
+  userClub UserClub[]
+  post Post[]
+  createdAt DateTime @default(now()) @map("created_at")
+}
+
+model Message {
+  club Club @relation(fields: [clubId],references: [id])
+  clubId Int
+  user User @relation(fields: [userId],references: [id])
+  userId Int
+  description String 
+  createdAt DateTime @default(now()) @map("created_at")
+  @@id([clubId,userId])
+}
+
+model UserClub{
+  club Club @relation(fields: [clubId],references: [id])
+  clubId Int
+  user User @relation(fields: [userId],references: [id])
+  userId Int
+  role Int 
+  createdAt DateTime @default(now()) @map("created_at")
+  @@id([clubId,userId])
+
+}
+
+model Post{
+  club Club @relation(fields: [clubId],references: [id])
+  clubId Int
+  user User @relation(fields: [userId],references: [id])
+  userId Int
+  header String
+  paragraph String
+  fileUrl String
+  createdAt DateTime @default(now()) @map("created_at")
+  @@id([clubId,userId])
+
+
+}
+// 0 means member
+// 1 means manager
+// 2 means admin
+
+
+

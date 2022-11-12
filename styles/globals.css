@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.index_main{
+
+	display: flex;
+	flex-direction: column;
+
+
+}
+
+
+.topNav{
+	display: flex;
+	position:sticky;
+	top:0;
+
+	
+
+}
+
+
+
+
+
