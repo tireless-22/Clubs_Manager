@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
+import { getReceiptDownloadURL } from '../../../utils/firebase'
 
+import { getDownloadURL } from 'firebase/storage'
 
 export default async function handler(
 	req,
@@ -11,11 +13,14 @@ export default async function handler(
 
 
 	const clubs = await prisma.club.findMany({})
+	
+
+		 res.status(200).json(clubs)
+
+		
 
 
-	// res.send("helo")
-
-	res.status(200).json(clubs)
+	
 
 
 }

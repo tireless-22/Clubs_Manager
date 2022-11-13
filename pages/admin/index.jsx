@@ -42,9 +42,7 @@ const admin = () => {
 			});
 		});
 
-		// console.log(imageRef);
-		// console.log(imageRef._location.path_);
-		// console.log(imageUrls);
+
 
 		const name = clubName;
 		const description = clubDescription;
