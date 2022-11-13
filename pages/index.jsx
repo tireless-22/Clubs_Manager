@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { getFetcher } from '../utils/swr_utils';
 import Link from 'next/link';
 import SideNav from '../components/sideNav';
+import Loading from '../components/loading';
 
 const Index = () => {
 
@@ -15,7 +16,7 @@ const Index = () => {
 
 
   if (clubDataError) return <div>failed to load</div>
-  if (!clubData) return <div>loading...</div>
+  if (!clubData) return <div><Loading/></div>
 
   return (
 
