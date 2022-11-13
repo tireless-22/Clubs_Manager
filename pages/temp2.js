@@ -2,19 +2,7 @@ import React from 'react'
 
 const temp2 = () => {
 	return (
-		<div>
-
-
-
-
-
-
-
-
-
-
-			
-		</div>
+		<div>temp2</div>
 	)
 }
 

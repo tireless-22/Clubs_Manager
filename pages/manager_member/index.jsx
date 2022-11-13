@@ -1,8 +1,14 @@
 import React from 'react'
+import TopNav from '../../components/topNav'
+
+
 
 const index = () => {
 	return (
-		<div>index</div>
+		<div className='index_main'>
+			<TopNav />
+			
+		</div>
 	)
 }
 

@@ -1,0 +1,56 @@
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+
+
+export default async function handler(
+	req,
+	res
+) {
+	console.log("hello there ************************************************************")
+	console.log(req.body)
+
+
+	try {
+		const user = await prisma.user.findUnique({
+			where: {
+				mailId: req.body.mailId
+			}
+		})
+
+		if (!user) {
+			const user = await prisma.user.create({
+				data: {
+					mailId: req.body.mailId,
+					password: req.body.mailId
+
+				},
+			})
+		}
+
+	
+		const userclub = await prisma.userClub.create({
+			data: {
+				clubId: req.body.club,
+				userId: req.body.mailId,
+				role: 2
+		
+
+			},
+		})
+	}
+	catch (e) {
+		console.log(e)
+	}
+
+
+
+
+	// res.send("helo")
+
+	res.status(200).json("added")
+
+
+}
+
+
+

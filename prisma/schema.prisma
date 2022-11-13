@@ -25,7 +25,6 @@ model User {
   id        Int        @id @default(autoincrement())
   mailId    String     @unique()
   password  String
-  name      String
   messages  Message[]
   userClub  UserClub[]
   post      Post[]
@@ -33,10 +32,10 @@ model User {
 }
 
 model Message {
-  club        Club     @relation(fields: [clubId], references: [id])
-  clubId      Int
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
+  club      Club     @relation(fields: [clubId], references: [name])
+  clubId    String
+  user      User     @relation(fields: [userId], references: [mailId])
+  userId    String
   description String
   createdAt   DateTime @default(now()) @map("created_at")
 
@@ -44,10 +43,10 @@ model Message {
 }
 
 model UserClub {
-  club      Club     @relation(fields: [clubId], references: [id])
-  clubId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  club      Club     @relation(fields: [clubId], references: [name])
+  clubId    String
+  user      User     @relation(fields: [userId], references: [mailId])
+  userId    String
   role      Int
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -55,10 +54,10 @@ model UserClub {
 }
 
 model Post {
-  club      Club     @relation(fields: [clubId], references: [id])
-  clubId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  club      Club     @relation(fields: [clubId], references: [name])
+  clubId    String
+  user      User     @relation(fields: [userId], references: [mailId])
+  userId    String
   header    String
   paragraph String
   fileUrl   String
