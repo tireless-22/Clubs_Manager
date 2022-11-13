@@ -46,7 +46,14 @@ const admin = () => {
 
 		const name = clubName;
 		const description = clubDescription;
-		const fileUrl = imageRef._location.path_;
+		let fileUrl = imageRef._location.path_;
+		console.log(imageRef);
+		console.log(fileUrl);
+
+		fileUrl = fileUrl.slice(7)
+		console.log(fileUrl);
+
+		// (?<=\?).*
 		
 		Axios.post("/api/club/create", {
 			name: name,
@@ -58,10 +65,6 @@ const admin = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-				
-				
-				
-
 	};
 
 

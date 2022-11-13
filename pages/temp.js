@@ -14,6 +14,9 @@ const temp = () => {
 
 
 
+
+
+
 	return (
 		<div>
 			{
@@ -23,10 +26,11 @@ const temp = () => {
 							<h1>
 								{club.name}
 							</h1>
-							<Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2Fde05aae1-54e0-4f3d-8e19-a87220731f81?alt=media"
-								width={200}
-								height={200} />
+							<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} />
+							
 						</div>
+
+
 					)
 				})
 			}
