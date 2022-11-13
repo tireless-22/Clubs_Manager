@@ -77,8 +77,9 @@ const admin = () => {
 				<div className='admin_left'>
 					<div className='admin_create_club'>
 
-						<h1 className='text-2xl  font-sans ml-4 font-semibold mt-4'> Create a Club</h1>
-						<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-2 ml-4 mr-4">
+					
+						<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+							<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Club</h1>
 							<div className="mb-4">
 								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 									Club Name

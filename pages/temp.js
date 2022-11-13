@@ -1,49 +1,103 @@
+import React,{useState} from 'react'
+import { storage, getReceiptDownloadURL } from '../utils/firebase';
 
-import { useState, useEffect } from "react";
-import {
-	ref,
-	uploadBytes,
-	getDownloadURL,
+import Image from 'next/image';
+import useSWRImmutable from 'swr/immutable';
+import { getFetcher } from '../utils/swr_utils';
+import Loading from '../components/loading';
 
-} from "firebase/storage";
-import { storage } from "../utils/firebase";
-import { v4 } from "uuid";
+const Temp = () => {
 
-function App() {
-	const [imageUpload, setImageUpload] = useState(null);
-	const [imageUrls, setImageUrls] = useState([]);
+	// const [url, setUrl] = useState("");
+	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getAll', getFetcher)
+	console.log(clubData)
+	let clubs;
+	const urltemp = getReceiptDownloadURL("images/f51617ad-8de1-4d36-8230-4731dbb7e7fb").then((url) => {
+		console.log(url)
+	})
+	console.log(clubData)
 
-	const imagesListRef = ref(storage, "images/");
-	
-	const uploadFile = () => {
-		if (imageUpload == null) return;
-		const imageRef = ref(storage, `images/${v4()}`);
-		
-		uploadBytes(imageRef, imageUpload).then((snapshot) => {
-			getDownloadURL(snapshot.ref).then((url) => {
-				setImageUrls((prev) => [...prev, url]);
-			});
-		});
-
-		console.log(imageRef);
-		console.log(imageRef._location);
-		console.log(imageUrls);
-	};
-
-	
+	if (clubData) {
+		clubs = clubData.map((club) => {
+			return (
+				<div key={club.id}>
+					<h1>{club.name}</h1>
+					<Image src={urltemp} width={200} height={200} />
+				</div>
+			)
+		})
+	}
 
 	return (
-		<div className="App">
-			<input
-				type="file"
-				onChange={(event) => {
-					setImageUpload(event.target.files[0]);
-				}}
-			/>
-			<button onClick={uploadFile}> Upload Image</button>
+		<div>
+			{clubs}
+			</div>
+	)
+
+
+	
+
+	// if (clubData) {
+	// 	clubs = clubData.map(club => ({
+	// 		...club,
+	// 		url: getReceiptDownloadURL(club.fileUrl)
+	// 			.then((url) => {
+
+	// 			console.log(url)
+	// 			return url
+				
+	// 		})
 			
-		</div>
-	);
+	// 	}))
+	// }
+
+	// if (clubData) {
+		
+
+		
+	// 		clubData.items.forEach((item) => {
+	// 			getDownloadURL(item.fileUrl).then((url) => {
+	// 				setImageUrls((prev) => [...prev, url]);
+	// 			});
+	// 		});
+
+
+	// }
+	
+	// console.log(clubData)
+
+
+
+
+	// console.log(clubs)
+	return<>hello</>
+
+
+	if (clubData) {
+		// console.log("clubs", clubData)
+		// console.log("clubs", clubData[0].url)
+		return
+		(<>
+			hello
+		</>)
+	
+		return (
+			<div>
+				hello
+			
+				{clubData.map(club => {
+					<Image src={club.url} width={200} height={200} />
+
+
+				})}
+		
+				
+
+			</div>
+		)
+	}
+
+	return <div><Loading/></div>
 }
 
-export default App;
+export default Temp

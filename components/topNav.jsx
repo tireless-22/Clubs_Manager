@@ -3,7 +3,7 @@ import Image from 'next/image'
 // top nav bar component with sticky position on top of the page
 const TopNav = () => {
 	return (
-		<div className='topNav'>
+		<div className='topNav dark:bg-gray-900'>
 			<div className='leftNav'>
 				<p className='text-2xl text-white ml-8 '>
 					Website Name
