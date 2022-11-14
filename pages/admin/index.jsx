@@ -27,9 +27,11 @@ const admin = () => {
 	const [clubName, setClubName] = useState("");
 	const [clubDescription, setClubDescription] = useState("");
 
+	const [selectClub,setSelectClub] = useState("");
+
 	const [mangerMail, setMangerMail] = useState("");
 
-	const [selectClub, setSelectClub] = useState("");
+	
 
 
 	const imagesListRef = ref(storage, "images/");
@@ -38,14 +40,19 @@ const admin = () => {
 	const { data: clubNames, error: clubNamesError } = useSWRImmutable('/api/club/getNames', getFetcher)
 	console.log(clubNames)
 
+
+
+	
+	
+
 	const createManager = () => {
 		console.log("manager created", mangerMail)
 		console.log("club selected", selectClub)
 
 		Axios.post("/api/user/createManager", {
 			
-			mailId: mangerMail,
-			club: selectClub
+			mailId: mangerMail.trim(),
+			club: selectClub.trim()
 			
 		}).then((response) => {
 			console.log(response.data);
@@ -87,8 +94,8 @@ const admin = () => {
 	
 
 		Axios.post("/api/club/create", {
-			name: name,
-			description: description,
+			name: name.trim(),
+			description: description.trim(),
 			fileUrl: fileUrl,
 		}).then((response) => {
 			console.log(response.data);
@@ -96,6 +103,8 @@ const admin = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+		
+		
 	};
 
 
@@ -169,7 +178,9 @@ const admin = () => {
 								<select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => {
 									setSelectClub(e.target.value);
 								}}>
+									<option>---Select Club---</option>
 									{clubNames.map((option) => (
+										
 										<option value={option.name}>{option.name}</option>
 									))}
 								</select>

@@ -7,12 +7,12 @@ export default async function handler(
 	res
 ) {
 	console.log("hello there ************************************************************")
-	console.log(req.body)
+
 
 
 	const club = await prisma.club.findFirst({
 		where: {
-			name: req.body.name
+			name: req.query.club
 		}
 	})
 

@@ -20,6 +20,9 @@ export default async function handler(
 	const messages = await prisma.message.findMany({
 		where: {
 			clubId: clubId
+		},
+		orderBy: {
+			createdAt: 'asc'
 		}
 
 

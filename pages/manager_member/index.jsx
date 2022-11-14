@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import TopNav from '../../components/topNav'
 import useSWRImmutable from 'swr/immutable';
 import axios from 'axios';
@@ -10,7 +10,8 @@ import InputEmoji from "react-input-emoji";
 
 
 const index = () => {
-	const userMail = "karthiknaveen22022002@gmail.com";
+	const messagesEndRef = useRef(null);
+	const userMail = "19131a0497@gvpce.ac.in";
 	const [club, setClub] = React.useState("AllClubs");
 	const [messagesInGroup, setMessageInGroup] = useState([]);
 	const [textBoxMessage, setTextBoxMessage] = useState("");
@@ -19,10 +20,18 @@ const index = () => {
 		onChatGrps()
 
 	}, []);
+	
+
+	useEffect(() => {
+		scrollToBottom();
+	}, [messagesInGroup]);
 
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
 
+	const scrollToBottom = () => {
+		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+	}
 
 	const onChatGrps = async () => {
 
@@ -70,6 +79,7 @@ const index = () => {
 		<div className='index_main'>
 			<TopNav />
 			<div className="manage_main_div">
+				
 				<div className="manage_main_div_left">
 
 					<aside className="w-64 mt-1 ml-1 mr-1" aria-label="Sidebar">
@@ -77,7 +87,10 @@ const index = () => {
 							<ul className="space-y-2">
 
 								{clubData.map((club) => (
-									<li >
+									<li onClick={() => {
+										setClub(club);
+										onChatGrps();
+									}} >
 										<div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-500  dark:hover:bg-gray-400">
 											<span className="ml-3">{club}</span>
 
@@ -126,17 +139,16 @@ const index = () => {
 										</div>
 									) : (
 											<div className='leftMessages pt-2 pl-3 pr-3 pb-2'>
-											<h5 sender={msg.userId}>
+												<p>{msg.userId}</p>
+											<h5 >
 												{msg.description}
 											</h5>
-											<h4>{msg.msg_data}</h4>
+									
 										</div>
 									)}
+									<div ref={messagesEndRef} />
 								</div>
 							))}
-
-
-
 							</div>
 						</div>
 

@@ -3,6 +3,7 @@ const prisma = new PrismaClient()
 import { getReceiptDownloadURL } from '../../../utils/firebase'
 
 import { getDownloadURL } from 'firebase/storage'
+import { data } from 'autoprefixer'
 
 export default async function handler(
 	req,
@@ -18,17 +19,16 @@ export default async function handler(
 		},
 
 	})
+	const data=[]
 
 
-	res.status(200).json(clubs)
+	for (let i = 0; i < clubs.length; i++) {
+		if (clubs[i].name !== "All Clubs") {
+			data.push(clubs[i]);
+		}
+		
+	}
 
 
-
-
-
-
-
+	res.status(200).json(data)
 }
-
-
-

@@ -37,6 +37,20 @@ export default async function handler(
 
 			},
 		})
+
+		const userAllClub = await prisma.userClub.create({
+			data: {
+				clubId: "All Clubs",
+				userId: req.body.mailId,
+				role: 1
+
+
+			},
+		})
+
+
+
+
 	}
 	catch (e) {
 		console.log(e)
@@ -45,7 +59,7 @@ export default async function handler(
 
 
 
-	// res.send("helo")
+
 
 	res.status(200).json("added")
 

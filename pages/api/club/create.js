@@ -20,9 +20,9 @@ export default async function handler(
 	})
 
 
-	res.send("helo")
 
-	// res.status(200).json(user)
+
+	res.status(200).json(user)
 
 
 }

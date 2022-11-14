@@ -20,18 +20,33 @@ const Index = () => {
 
   return (
 
-     <div className='index_main'>
+    <div className='index_main'>
       <TopNav />
-      <div className="index_post_container">
-        <SideNav/>
-        
+      <div className="manage_main_div">
+
+        <div className="manage_main_div_left">
+          <SideNav />
+          
 
         
+        </div>
+
+
+        <div className='manage_main_div_right'>
+
+          
+         
+
+          
+
+        </div>
+
+
+
+
       </div>
+
     </div>
-
-
-   
   )
 }
 

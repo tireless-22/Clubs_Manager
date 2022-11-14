@@ -8,10 +8,11 @@ import Link  from 'next/link';
 
 const SideNav = () => {
 
-	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getAll', getFetcher)
+	const { data: clubNames, error: clubNamesError } = useSWRImmutable('/api/club/getNames', getFetcher)
+	console.log(clubNames)
 
-	if (clubDataError) return <div>failed to load</div>
-	if (!clubData) return <div>loading...</div>
+	if (clubNamesError) return <div>failed to load</div>
+	if (!clubNames) return <div>loading...</div>
 	
 	return (
 		<div>
@@ -21,7 +22,7 @@ const SideNav = () => {
 				<div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-700">
 					<ul className="space-y-2">
 
-						{clubData.map((club) => (
+						{clubNames.map((club) => (
 							<li key={club.id}>
 								<Link href={`/clubs/${club.name}`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-500  dark:hover:bg-gray-400">
 
