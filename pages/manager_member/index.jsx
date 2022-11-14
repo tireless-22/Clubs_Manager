@@ -6,28 +6,33 @@ import axios from 'axios';
 import { getFetcher } from "../../utils/swr_utils"
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button, Modal } from 'antd';
 import InputEmoji from "react-input-emoji";
 
+import Loading from '../../components/loading';
 
 const index = () => {
 	const messagesEndRef = useRef(null);
-	const userMail = "19131a0497@gvpce.ac.in";
-	const [club, setClub] = React.useState("AllClubs");
+	const userMail = "19131a0498@gvpce.ac.in";
+	const [club, setClub] = React.useState("All Clubs");
 	const [messagesInGroup, setMessageInGroup] = useState([]);
 	const [textBoxMessage, setTextBoxMessage] = useState("");
 
 	useEffect(() => {
 		onChatGrps()
 
-	}, []);
+	}, [club]);
 	
 
 	useEffect(() => {
 		scrollToBottom();
+		
 	}, [messagesInGroup]);
 
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
+	console.log(clubData)
+	
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -71,7 +76,7 @@ const index = () => {
 
 
 	if (clubDataError) return <div>failed to load</div>
-	if (!clubData) return <div>loading...</div>
+	if (!clubData) return <div><Loading/></div>
 
 
 
@@ -80,19 +85,19 @@ const index = () => {
 			<TopNav />
 			<div className="manage_main_div">
 				
-				<div className="manage_main_div_left">
+				<div className="manage_main_div_left bg-gray-700 ">
 
-					<aside className="w-64 mt-1 ml-1 mr-1" aria-label="Sidebar">
+					<aside className="w-full" aria-label="Sidebar">
 						<div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-700">
 							<ul className="space-y-2">
 
 								{clubData.map((club) => (
 									<li onClick={() => {
-										setClub(club);
+										setClub(club.clubId);
 										onChatGrps();
 									}} >
-										<div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-500  dark:hover:bg-gray-400">
-											<span className="ml-3">{club}</span>
+										<div className="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-500  dark:hover:bg-gray-400">
+											<span className="ml-3 text-xl">{club.clubId}</span>
 
 										</div>
 									</li>
@@ -107,7 +112,19 @@ const index = () => {
 				<div className='manage_main_div_right'>
 
 					<div className="manage_main_div_right_top ">
-						{club}
+						<div className="manage_main_div_right_top_left">
+							<div className=' text-white text-xl'>
+
+							{club}
+							</div>
+							
+							</div>
+
+							<div className="manage_main_div_right_top_right">
+							club
+							</div>
+
+						
 
 
 

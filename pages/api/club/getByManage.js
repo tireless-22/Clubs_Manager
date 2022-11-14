@@ -30,7 +30,7 @@ export default async function handler(
 	console.log(clubs)
 	const data = [];
 	for (let i = 0; i < clubs.length; i++){
-		data.push(clubs[i].clubId)
+		data.push(clubs[i])
 	}
 	console.log(data);
 

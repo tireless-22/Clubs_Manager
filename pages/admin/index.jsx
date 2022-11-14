@@ -5,7 +5,7 @@ import useSWRImmutable from 'swr/immutable';
 import { useState, useEffect } from "react"
 import Image from 'next/image';
 import { getFetcher } from '../../utils/swr_utils';
-
+import { useRouter } from 'next/router';
 import Loading from '../../components/loading'
 
 import {
@@ -17,9 +17,11 @@ import {
 import { storage } from '../../utils/firebase';
 
 import { v4 } from "uuid";
+import axios from 'axios';
 
 
 const admin = () => {
+	const Router = useRouter();
 
 	const [imageUpload, setImageUpload] = useState(null);
 	const [imageUrls, setImageUrls] = useState([]);
@@ -105,6 +107,12 @@ const admin = () => {
 			});
 		
 		
+		Router.reload();
+		
+		
+		
+		
+		
 	};
 
 
@@ -125,10 +133,11 @@ const admin = () => {
 						<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
 							<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Club</h1>
 							<div className="mb-4">
-								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
+								<label className="block text-gray-700 text-sm font-bold mb-2" for="Club Name">
 									Club Name
 								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"
+								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Club Name" 
+							
 									onChange={(e) => setClubName(e.target.value)}
 								>
 								</input>
@@ -137,7 +146,7 @@ const admin = () => {
 								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 									Club Description
 								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"
+								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Descriptioin" type="text" placeholder="Club Description"
 									onChange={(e) => setClubDescription(e.target.value)}
 								>
 								</input>
