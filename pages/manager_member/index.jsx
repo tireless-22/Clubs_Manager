@@ -107,7 +107,7 @@ const index = () => {
 				<div className='manage_main_div_right'>
 
 					<div className="manage_main_div_right_top ">
-						hello right top
+						{club}
 
 
 
