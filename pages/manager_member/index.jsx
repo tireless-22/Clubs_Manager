@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import TopNav from '../../components/topNav'
 import useSWRImmutable from 'swr/immutable';
-
+import axios from 'axios';
 
 import { getFetcher } from "../../utils/swr_utils"
 import Image from 'next/image';
@@ -11,13 +11,59 @@ import InputEmoji from "react-input-emoji";
 
 const index = () => {
 	const userMail = "karthiknaveen22022002@gmail.com";
-	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher)
+	const [club, setClub] = React.useState("AllClubs");
+	const [messagesInGroup, setMessageInGroup] = useState([]);
+	const [textBoxMessage, setTextBoxMessage] = useState("");
+
+	useEffect(() => {
+		onChatGrps()
+
+	}, []);
+
+
+	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
+
+
+	const onChatGrps = async () => {
+
+		const res = await axios.get(
+			`/api/message/getByClub?clubId=${club}`
+		);
+		setMessageInGroup(res.data);
+		console.log(messagesInGroup)
+
+
+	};
+	const handleOnEnter = async () => {
+		console.log(textBoxMessage)
+
+		let msg = textBoxMessage.trim();
+		if (msg.length !== 0) {
+			await axios.post(
+				`api/message/create?club=${club}&mailId=${userMail}&description=${msg}`
+			)
+				.then((res) => {
+					/* console.log("successfull") */
+				})
+				.catch((e) => {
+					console.log(e);
+				})
+		}
+		onChatGrps();
+
+
+		setTextBoxMessage("");
+	}
 
 	console.log(clubData);
-	// hard coded for now
+	console.log(messagesInGroup);
+
+
+
 
 	if (clubDataError) return <div>failed to load</div>
 	if (!clubData) return <div>loading...</div>
+
 
 
 	return (
@@ -66,18 +112,41 @@ const index = () => {
 						flexDirection: "column",
 					}}
 					>
-				
+						<div className='msgsBody'>
+
+
+						
+						<div className='messagesAll'>
+
+							{messagesInGroup.map((msg) => (
+								<div key={msg.id}>
+									{msg.userId === userMail ? (
+										<div className='rightMessages pt-2 pl-3 pr-3 pb-2'>
+											<h1>{msg.description}</h1>
+										</div>
+									) : (
+											<div className='leftMessages pt-2 pl-3 pr-3 pb-2'>
+											<h5 sender={msg.userId}>
+												{msg.description}
+											</h5>
+											<h4>{msg.msg_data}</h4>
+										</div>
+									)}
+								</div>
+							))}
 
 
 
+							</div>
+						</div>
 
 					</div>
 					<div className="manage_main_div_right_bottom">
 						<InputEmoji
-							// value={textBoxMessage}
-							// onChange={setTextBoxMessage}
+							value={textBoxMessage}
+							onChange={setTextBoxMessage}
 							cleanOnEnter
-							// onEnter={handleOnEnter}
+							onEnter={handleOnEnter}
 							placeholder="Type a message"
 						/>
 

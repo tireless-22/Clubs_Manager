@@ -13,13 +13,13 @@ export default async function handler(
 
 
 
-	const mailId = req.query.mailId;
+	const clubId = req.query.clubId;
 
 
 
 	const messages = await prisma.message.findMany({
 		where: {
-			mailId: mailId
+			clubId: clubId
 		}
 
 

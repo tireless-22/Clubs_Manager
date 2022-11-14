@@ -15,9 +15,9 @@ export default async function handler(
 
 		const msg = await prisma.message.create({
 			data: {
-				clubId: req.body.club,
-				userId: req.body.mailId,
-				description:req.body.description
+				clubId: req.query.club,
+				userId: req.query.mailId,
+				description:req.query.description
 
 
 			},
