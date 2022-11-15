@@ -1,7 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
+import { useState, useEffect } from 'react';
 // top nav bar component with sticky position on top of the page
 const TopNav = () => {
+
+	
+	
+	const [userData, setUserData] = useState({});
+	// console.log(userData);
+
+
+	useEffect(() => {
+		setUserData(localStorage.getItem('email'));
+		console.log("hello")
+		console.log(userData)
+	}, [])
+
+
 	return (
 		<div className='topNav dark:bg-gray-900'>
 			<div className='leftNav'>
