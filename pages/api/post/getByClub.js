@@ -12,22 +12,30 @@ export default async function handler(
 	console.log(req.body)
 
 
-	let clubs = await prisma.club.findMany({})
 
-	clubs = clubs.filter(function (item) {
-		return item.name !== "All Clubs"
+	const clubId = req.query.clubId;
+
+
+
+	const messages = await prisma.post.findMany({
+		where: {
+			clubId: clubId
+		},
+		orderBy: {
+			createdAt: 'asc'
+		}
+
+
 	})
-	
-
-		 res.status(200).json(clubs)
-
-		
 
 
-	
+
+	res.status(200).json(messages)
+
+
+
+
+
 
 
 }
-
-
-

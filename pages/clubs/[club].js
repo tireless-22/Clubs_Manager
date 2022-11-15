@@ -14,6 +14,11 @@ const Club = () => {
 	const club = router.query.club
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/get?club=' + club, getFetcher);
+	
+
+	const { data: posts, error: postError } = useSWRImmutable('http://localhost:3000/api/post/getByClub?clubId='+ club, getFetcher);
+	console.log(posts)
+
 
 	console.log("hello from [club]",clubData)
 
@@ -24,7 +29,7 @@ const Club = () => {
 	if (clubDataError) {
 		return <div>failed to load</div>
 	}
-	if (!clubData) {
+	if (!clubData || !posts) {
 		return <div>
 			<Loading />
 
@@ -36,14 +41,6 @@ const Club = () => {
 		<div className='index_main'>
 			<TopNav />
 			<div className="manage_main_div">
-
-				<div className="manage_main_div_left">
-					<SideNav />
-
-				</div>
-				<div className='manage_main_div_right'>
-
-
 					<div className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
 						<h1>
 							{clubData.name}
@@ -52,11 +49,34 @@ const Club = () => {
 							{clubData.description}
 						</p>
 						<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} width={200} height={200} />
-
-
-					</div>
-	
 				</div>
+
+				
+				{
+					posts.length!==0&&
+					posts.map((post) => (
+					
+						<div className='' >
+							<h1>
+
+							</h1>
+
+							<p>{post.userId}</p>
+							<p>{post.header}</p>
+							<p>{post.paragraph}</p>
+							
+							
+						
+							<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={200} height={200} />
+
+								
+							</div>
+
+					))
+				}
+			
+	
+			
 			</div>
 
 		</div>

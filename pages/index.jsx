@@ -42,27 +42,33 @@ const Index = () => {
         <div className='landing_main_div_clubs'>
           {
             clubData.map((club) => (
+              <Link href={`/clubs/${club.name}`} key={club.id}>
+                <div className='landing_page_club_card' >
+                  <div className='landing_page_club_card_image'>
+                    <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} />
 
+                  </div>
+                  <div className='landing_page_club_card_image'>
+                    <h1>
+                      {club.name}
+                    </h1>
 
-              <div className='landing_page_club_card'>
-                <div className='landing_page_club_card_image'>
-                  <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} />
+                  </div>
+                  <div className='landing_page_club_card_image'>
+                    <h1>
+                      {club.description}
+                    </h1>
+
+                  </div>
 
                 </div>
-                <div className='landing_page_club_card_image'>
-                  <h1>
-                    {club.name}
-                  </h1>
-                  
-                </div>
-                <div className='landing_page_club_card_image'>
-                  <h1>
-                    {club.description}
-                  </h1>
-                  
-                </div>
 
-              </div>
+
+
+                </Link>
+
+
+            
 
 
             ))
