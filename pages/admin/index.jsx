@@ -69,10 +69,6 @@ const admin = () => {
 
 
 	const createClub = () => {
-		console.log(clubName);
-		console.log(clubDescription)
-
-
 
 		if (imageUpload == null) return;
 		const imageRef = ref(storage, `images/${v4()}`);
@@ -82,19 +78,10 @@ const admin = () => {
 				setImageUrls((prev) => [...prev, url]);
 			});
 		});
-
-
-
-
-
 		const name = clubName;
 		const description = clubDescription;
 		let fileUrl = imageRef._location.path_;
-		
-
 		fileUrl = fileUrl.slice(7)
-	
-
 		Axios.post("/api/club/create", {
 			name: name.trim(),
 			description: description.trim(),
@@ -105,15 +92,10 @@ const admin = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		
-		
 		Router.reload();
-		
-		
-		
-		
-		
 	};
+
+
 
 
 	if (!clubNames) {
@@ -208,12 +190,6 @@ const admin = () => {
 							</div>
 						</form>
 					</div>
-
-
-
-
-
-
 				</div>
 				<div className='admin_right'>
 				</div>

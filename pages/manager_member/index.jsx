@@ -1,15 +1,43 @@
-import React, { useState, useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import TopNav from '../../components/topNav'
 import useSWRImmutable from 'swr/immutable';
 import axios from 'axios';
+import 'antd/dist/antd.css';
+import Modal from 'react-modal';
 
 import { getFetcher } from "../../utils/swr_utils"
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Modal } from 'antd';
+import manageMemvers from "../../Images/manageMembers.png"
+import addPostImage from "../../Images/addPost.png"
+
+
+import {
+	ref,
+	uploadBytes,
+	getDownloadURL,
+
+} from "firebase/storage";
+import { storage } from '../../utils/firebase';
+
+import { v4 } from "uuid";
+
+
+
 import InputEmoji from "react-input-emoji";
 
 import Loading from '../../components/loading';
+
+const customStyles = {
+	content: {
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		marginRight: '-50%',
+		transform: 'translate(-50%, -50%)',
+	},
+};
 
 const index = () => {
 	const messagesEndRef = useRef(null);
@@ -18,25 +46,49 @@ const index = () => {
 	const [messagesInGroup, setMessageInGroup] = useState([]);
 	const [textBoxMessage, setTextBoxMessage] = useState("");
 
+
+	const [manageMembers, setManageMembers] = React.useState(false);
+	const [addPost, setAddPost] = React.useState(false);
+
+	const [heading, setHeading] = React.useState("");
+	const [postDescription, setPostDescription] = React.useState("");
+
+
+	const [imageUpload, setImageUpload] = useState(null);
+	const [imageUrls, setImageUrls] = useState([]);
+
+
+
+
+
+
+
 	useEffect(() => {
 		onChatGrps()
 
 	}, [club]);
-	
+
 
 	useEffect(() => {
 		scrollToBottom();
-		
+
 	}, [messagesInGroup]);
+
+
+
+
+
 
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
 	console.log(clubData)
-	
+
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
 	}
+
+
 
 	const onChatGrps = async () => {
 
@@ -48,6 +100,7 @@ const index = () => {
 
 
 	};
+
 	const handleOnEnter = async () => {
 		console.log(textBoxMessage)
 
@@ -69,14 +122,50 @@ const index = () => {
 		setTextBoxMessage("");
 	}
 
-	console.log(clubData);
-	console.log(messagesInGroup);
+
+	const createPost = () => {
+		console.log(heading)
+		console.log(postDescription)
+
+
+		if (imageUpload == null) return;
+		const imageRef = ref(storage, `images/${v4()}`);
+
+		uploadBytes(imageRef, imageUpload).then((snapshot) => {
+			getDownloadURL(snapshot.ref).then((url) => {
+				setImageUrls((prev) => [...prev, url]);
+			});
+		});
+		
+		let fileUrl = imageRef._location.path_;
+
+		
+		fileUrl = fileUrl.slice(7)
+		axios.post("/api/post/create", {
+			userId: userMail,
+			clubId:club,
+			heading: heading.trim(),
+			description: postDescription.trim(),
+			fileUrl: fileUrl,
+		}).then((response) => {
+			console.log(response.data);
+		})
+			.catch((error) => {
+				console.log(error);
+			});
+		
+	};
+
+
+
+
+	
 
 
 
 
 	if (clubDataError) return <div>failed to load</div>
-	if (!clubData) return <div><Loading/></div>
+	if (!clubData) return <div><Loading /></div>
 
 
 
@@ -84,7 +173,7 @@ const index = () => {
 		<div className='index_main'>
 			<TopNav />
 			<div className="manage_main_div">
-				
+
 				<div className="manage_main_div_left bg-gray-700 ">
 
 					<aside className="w-full" aria-label="Sidebar">
@@ -115,16 +204,35 @@ const index = () => {
 						<div className="manage_main_div_right_top_left">
 							<div className=' text-white text-xl'>
 
-							{club}
-							</div>
-							
+								{club}
 							</div>
 
-							<div className="manage_main_div_right_top_right">
-							club
+						</div>
+
+						<div className="manage_main_div_right_top_right">
+
+
+							<div className='manager_manage_div bg-red-200' onClick={() => {
+								setManageMembers(true);
+							}}>
+								<Image src={manageMemvers} alt="manageMemvers" width={40} height={40} />
 							</div>
 
-						
+
+
+
+							<div className='manager_manage_div bg-red-200' onClick={() => {
+								setAddPost(true);
+							}}>
+								<Image src={addPostImage} alt="addPost" width={40} height={40} />
+							</div>
+
+
+
+
+						</div>
+
+
 
 
 
@@ -145,27 +253,27 @@ const index = () => {
 						<div className='msgsBody'>
 
 
-						
-						<div className='messagesAll'>
 
-							{messagesInGroup.map((msg) => (
-								<div key={msg.id}>
-									{msg.userId === userMail ? (
-										<div className='rightMessages pt-2 pl-3 pr-3 pb-2'>
-											<h1>{msg.description}</h1>
-										</div>
-									) : (
+							<div className='messagesAll'>
+
+								{messagesInGroup.map((msg) => (
+									<div key={msg.id}>
+										{msg.userId === userMail ? (
+											<div className='rightMessages pt-2 pl-3 pr-3 pb-2'>
+												<h1>{msg.description}</h1>
+											</div>
+										) : (
 											<div className='leftMessages pt-2 pl-3 pr-3 pb-2'>
 												<p>{msg.userId}</p>
-											<h5 >
-												{msg.description}
-											</h5>
-									
-										</div>
-									)}
-									<div ref={messagesEndRef} />
-								</div>
-							))}
+												<h5 >
+													{msg.description}
+												</h5>
+
+											</div>
+										)}
+										<div ref={messagesEndRef} />
+									</div>
+								))}
 							</div>
 						</div>
 
@@ -189,6 +297,77 @@ const index = () => {
 
 
 			</div>
+
+			<Modal
+				isOpen={manageMembers}
+
+				onRequestClose={() => setManageMembers(false)}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				hello this is for manage members
+
+
+			</Modal>
+
+
+			<Modal
+				isOpen={addPost}
+
+				onRequestClose={() => setAddPost(false)}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				<div className='admin_create_club'>
+					<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Post</h1>
+						<div className="mb-4">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Heading
+							</label>
+							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Heading"
+
+								onChange={(e) => setHeading(e.target.value)}
+							>
+							</input>
+						</div>
+
+						<div className="mb-4">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Description">
+								Post Description
+							</label>
+							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Descriptioin" type="text" placeholder="Post Description"
+								onChange={(e) => setPostDescription(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+						<div className="mb-4">
+							<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
+								onChange={(e) => setImageUpload(e.target.files[0])} />
+						</div>
+						<div className="flex items-center justify-between">
+							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+								onClick={createPost}
+							>
+								Create a Club
+							</button>
+						</div>
+					</form>
+				</div>
+
+
+			</Modal>
+
+
+
+
+
+
+
+
+
 
 		</div>
 	)
