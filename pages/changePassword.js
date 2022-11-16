@@ -122,6 +122,7 @@ const changePassword = () => {
 					</div>
 
 
+
 					<div className="mb-4">
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							ReEnter New Password
@@ -156,12 +157,12 @@ const changePassword = () => {
 
 						</div>
 
-						<div className='text-blue-500' onClick={() => window.location.href = '/changePassword'}>
-							Change Password ?
-
+						<div className='text-blue-500' onClick={() => window.location.href = '/forgotPassword'}>
+							Forgot Password ?
 
 						</div>
 
+						
 
 					</div>
 				</form>

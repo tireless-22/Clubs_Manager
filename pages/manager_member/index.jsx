@@ -363,8 +363,8 @@ const index = () => {
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
-				<div className='admin_create_club'>
-					<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+				<div className='admin_create_club w-96'>
+					<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Post</h1>
 						<div className="mb-4">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">

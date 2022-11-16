@@ -1,36 +1,57 @@
 import React from 'react'
-
+import { useState } from 'react'
+import axios from 'axios'
 import TopNav from '../components/topNav'
+
+
+
+
+
 
 const forgotPassword = () => {
 	
 
 	const [email, setEmail] = React.useState('')
+
 	const [error, setError] = React.useState('')
 	const [passMessage, setPassMessage] = useState("")
 
 
+
+
+
+
 	const forgot = () => {
+		setError("")
+		setPassMessage("")
 
 		console.log(email)
+		const data=""
 		axios.post("/api/user/existOrNot", {
 
 			mailId: email.trim(),
 		
 		})
 			.then((res) => {
-				if(res.data==="true"){
-					setPassMessage("Password changed successfully")
-					window.location.href = "/login"
+				if (res.data === "true") {
+
+					axios.post("/api/mail/forgot", {	
+						mailId: email.trim(),
+					})
+					setPassMessage("Password reset link sent to your mail")
+					
+					
 				}
 				else {
 					setError("User not found")
+					return;
 				}
 
 			
 		}).catch((err) => {
 			console.log(err)
 		})
+		console.log()
 	
 
 
@@ -51,7 +72,7 @@ const forgotPassword = () => {
 			<div className="flex items-center justify-center h-screen ">
 
 				<form className="bg-white shadow-md rounded px-8 w-2/6  pb-4 mb-2 mt-2 ml-4 mr-4">
-					<h1 className='text-2xl items-center justify-center  font-sans font-semibold mt-4 mb-2'>Login</h1>
+					<h1 className='text-2xl items-center justify-center  font-sans font-semibold mt-4 mb-2'>Forgot Password</h1>
 					<div className="mb-4">
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							Gmail
