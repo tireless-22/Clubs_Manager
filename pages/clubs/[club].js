@@ -17,7 +17,7 @@ const Club = () => {
 	
 
 	const { data: posts, error: postError } = useSWRImmutable('http://localhost:3000/api/post/getByClub?clubId='+ club, getFetcher);
-	console.log(posts)
+	console.log("posts",posts)
 
 
 	console.log("hello from [club]",clubData)

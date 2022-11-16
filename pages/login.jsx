@@ -91,6 +91,22 @@ const temp = () => {
 							LOGIN
 						</button>
 					</div>
+					<div className="flex items-center justify-between">
+						<div>
+
+						</div>
+
+						<div>
+
+
+						</div>
+
+						
+
+						Change Password?
+
+
+					</div>
 				</form>
 			</div>
 

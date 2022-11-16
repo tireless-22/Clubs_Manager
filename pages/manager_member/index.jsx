@@ -201,7 +201,7 @@ const index = () => {
 					<p className='text-base text-white bg-blue-700 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
 						() => {
 							localStorage.removeItem("email");
-							window.location.href = "/login"
+							window.location.href = "/"
 						}
 					}>
 						logout

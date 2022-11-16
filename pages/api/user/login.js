@@ -10,7 +10,15 @@ export default async function handler(
 
 	const mailId = req.body.mailId;
 	const password = req.body.password;
-	console.log("passwrord",password)
+	console.log("passwrord", password)
+	
+	if (mailId == "admin") {
+		if (password == "admin") {
+			res.status(200).json("true")
+		} else {
+			res.status(400).json("false")
+		}
+	}
 
 
 
@@ -38,10 +46,6 @@ export default async function handler(
 			res.json("false")
 		
 		}
-
-
-
-
 	}
 
 }
