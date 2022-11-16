@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import TopNav from '../components/topNav'
 import axios from 'axios'
 
@@ -31,21 +31,27 @@ const temp = () => {
 				console.log("error")
 				setError("Invalid Credentials")
 
-				
+
 			}
 			else {
 				console.log("user logged in")
 				localStorage.setItem("email", email);
+
+
+				if (email == "admin") {
+					window.location.href = "/admin"
+
+				}
+				else {
+					window.location.href = "/manager_member"
+
+				}
 			}
-			
+
 		})
 			.catch((error) => {
 				console.log(error);
 			});
-
-
-
-
 
 
 	}
@@ -54,6 +60,7 @@ const temp = () => {
 	return (
 		<div>
 			<TopNav />
+		
 			<div className="flex items-center justify-center h-screen ">
 
 				<form className="bg-white shadow-md rounded px-8 w-2/6  pb-4 mb-2 mt-2 ml-4 mr-4">
@@ -86,12 +93,6 @@ const temp = () => {
 					</div>
 				</form>
 			</div>
-
-
-
-
-
-
 
 
 

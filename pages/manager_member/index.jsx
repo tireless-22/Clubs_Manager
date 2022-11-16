@@ -11,6 +11,8 @@ import Link from 'next/link';
 import manageMemvers from "../../Images/manageMembers.png"
 import addPostImage from "../../Images/addPost.png"
 
+import { useRouter } from 'next/router';
+
 
 import {
 	ref,
@@ -27,6 +29,7 @@ import { v4 } from "uuid";
 import InputEmoji from "react-input-emoji";
 
 import Loading from '../../components/loading';
+;
 
 const customStyles = {
 	content: {
@@ -40,8 +43,34 @@ const customStyles = {
 };
 
 const index = () => {
+
+	// const router = useRouter();
+
+	let userMail = ""
+	
+
+	if (typeof window !== 'undefined') {
+		console.log(localStorage.getItem("email"))
+		localStorage.getItem("email") ? userMail = localStorage.getItem("email") : userMail = "null";
+
+		userMail == "null" ? window.location.href = "/login" : console.log("user logged in")
+
+
+
+		userMail = localStorage.getItem("email")
+		console.log(userMail)
+	}
+	
+
+
+	
+
+
+
+	
+
 	const messagesEndRef = useRef(null);
-	const userMail = "19131a0498@gvpce.ac.in";
+	// const userMail = "19131a0498@gvpce.ac.in";
 	const [club, setClub] = React.useState("All Clubs");
 	const [messagesInGroup, setMessageInGroup] = useState([]);
 	const [textBoxMessage, setTextBoxMessage] = useState("");
@@ -59,10 +88,6 @@ const index = () => {
 
 
 
-
-
-
-
 	useEffect(() => {
 		onChatGrps()
 
@@ -73,9 +98,6 @@ const index = () => {
 		scrollToBottom();
 
 	}, [messagesInGroup]);
-
-
-
 
 
 
@@ -97,8 +119,6 @@ const index = () => {
 		);
 		setMessageInGroup(res.data);
 		console.log(messagesInGroup)
-
-
 	};
 
 	const handleOnEnter = async () => {
@@ -136,14 +156,15 @@ const index = () => {
 				setImageUrls((prev) => [...prev, url]);
 			});
 		});
-		
+
+
+
 		let fileUrl = imageRef._location.path_;
 
-		
 		fileUrl = fileUrl.slice(7)
 		axios.post("/api/post/create", {
 			userId: userMail,
-			clubId:club,
+			clubId: club,
 			heading: heading.trim(),
 			description: postDescription.trim(),
 			fileUrl: fileUrl,
@@ -153,25 +174,43 @@ const index = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		
+
 	};
-
-
-
-
-	
-
-
-
 
 	if (clubDataError) return <div>failed to load</div>
 	if (!clubData) return <div><Loading /></div>
 
-
-
 	return (
 		<div className='index_main'>
-			<TopNav />
+
+			<div className='topNav dark:bg-gray-900'>
+				<div className='leftNav'>
+					<p className='text-2xl text-white ml-8 '>
+						Website Name
+					</p>
+					<Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images/rotract.png2572652a-be20-4153-bb95-4f9fd40477dc" width={100} height={100} />
+				</div>
+				<div className='rightNav'>
+					<p className='text-base text-white mr-10' onClick={() => window.location.href = '/'}>
+						Clubs
+					</p>
+
+					<p className='text-base text-white  mr-10' onClick={() => window.location.href = '/admin'}>
+						{userMail}
+					</p>
+					<p className='text-base text-white bg-blue-700 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
+						() => {
+							localStorage.removeItem("email");
+							window.location.href = "/login"
+						}
+					}>
+						logout
+					</p>
+
+				</div>
+
+			</div>
+			
 			<div className="manage_main_div">
 
 				<div className="manage_main_div_left bg-gray-700 ">
@@ -206,36 +245,21 @@ const index = () => {
 
 								{club}
 							</div>
-
 						</div>
 
 						<div className="manage_main_div_right_top_right">
-
-
 							<div className='manager_manage_div bg-red-200' onClick={() => {
 								setManageMembers(true);
 							}}>
 								<Image src={manageMemvers} alt="manageMemvers" width={40} height={40} />
 							</div>
 
-
-
-
 							<div className='manager_manage_div bg-red-200' onClick={() => {
 								setAddPost(true);
 							}}>
 								<Image src={addPostImage} alt="addPost" width={40} height={40} />
 							</div>
-
-
-
-
 						</div>
-
-
-
-
-
 					</div>
 					<div style={{
 						overflowX: "hidden",
@@ -250,10 +274,8 @@ const index = () => {
 						flexDirection: "column",
 					}}
 					>
+
 						<div className='msgsBody'>
-
-
-
 							<div className='messagesAll'>
 
 								{messagesInGroup.map((msg) => (
@@ -286,16 +308,9 @@ const index = () => {
 							onEnter={handleOnEnter}
 							placeholder="Type a message"
 						/>
-
-
-
 					</div>
 
 				</div>
-
-
-
-
 			</div>
 
 			<Modal
@@ -306,8 +321,6 @@ const index = () => {
 				contentLabel="Example Modal"
 			>
 				hello this is for manage members
-
-
 			</Modal>
 
 
@@ -341,8 +354,6 @@ const index = () => {
 							>
 							</input>
 						</div>
-
-
 						<div className="mb-4">
 							<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
 								onChange={(e) => setImageUpload(e.target.files[0])} />
@@ -359,16 +370,6 @@ const index = () => {
 
 
 			</Modal>
-
-
-
-
-
-
-
-
-
-
 		</div>
 	)
 }

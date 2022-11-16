@@ -21,6 +21,23 @@ import axios from 'axios';
 
 
 const admin = () => {
+
+	let userMail = ""
+
+	if (typeof window !== 'undefined') {
+		console.log(localStorage.getItem("email"))
+		localStorage.getItem("email") ? userMail = localStorage.getItem("email") : userMail = "null";
+
+		userMail == "null" ? window.location.href = "/login" : console.log("user logged in")
+
+
+
+		userMail = localStorage.getItem("email")
+		console.log(userMail)
+	}
+
+
+
 	const Router = useRouter();
 
 	const [imageUpload, setImageUpload] = useState(null);
@@ -108,7 +125,38 @@ const admin = () => {
 
 	return (
 		<div className="admin_main">
-			<TopNav />
+
+			<div className='topNav dark:bg-gray-900'>
+				<div className='leftNav'>
+					<p className='text-2xl text-white ml-8 '>
+						Website Name
+					</p>
+					<Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images/rotract.png2572652a-be20-4153-bb95-4f9fd40477dc" width={100} height={100} />
+				</div>
+				<div className='rightNav'>
+					<p className='text-base text-white mr-10' onClick={() => window.location.href = '/'}>
+						Clubs
+					</p>
+					
+					<p className='text-base text-white  mr-10' onClick={() => window.location.href = '/admin'}>
+						Admin
+					</p>
+					<p className='text-base text-white bg-blue-700 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
+						() => {
+							localStorage.removeItem("email");
+							window.location.href = "/login"
+						}
+					}>
+						logout
+					</p>
+
+				</div>
+
+			</div>
+
+
+
+		
 			<div className='admin' >
 				<div className='admin_left'>
 					<div className='admin_create_club'>
