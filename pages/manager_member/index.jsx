@@ -188,17 +188,17 @@ const index = () => {
 					<p className='text-2xl text-white ml-8 '>
 						Website Name
 					</p>
-					<Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images/rotract.png2572652a-be20-4153-bb95-4f9fd40477dc" width={100} height={100} />
+					
 				</div>
 				<div className='rightNav'>
-					<p className='text-base text-white mr-10' onClick={() => window.location.href = '/'}>
+					<p className='text-base pt-3 mr-10 text-white' onClick={() => window.location.href = '/'}>
 						Clubs
 					</p>
 
-					<p className='text-base text-white  mr-10' onClick={() => window.location.href = '/admin'}>
-						{userMail}
+					<p className='text-base mr-10 pt-3 text-white  ' onClick={() => window.location.href = '/admin'}>
+						Manager / Member
 					</p>
-					<p className='text-base text-white bg-blue-700 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
+					<p className='text-base text-white bg-blue-700 mt-4 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
 						() => {
 							localStorage.removeItem("email");
 							window.location.href = "/"
@@ -210,6 +210,10 @@ const index = () => {
 				</div>
 
 			</div>
+
+
+
+
 			
 			<div className="manage_main_div">
 

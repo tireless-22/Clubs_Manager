@@ -33,7 +33,7 @@ const admin = () => {
 
 
 		userMail = localStorage.getItem("email")
-		
+
 	}
 
 
@@ -46,11 +46,9 @@ const admin = () => {
 	const [clubName, setClubName] = useState("");
 	const [clubDescription, setClubDescription] = useState("");
 
-	const [selectClub,setSelectClub] = useState("");
+	const [selectClub, setSelectClub] = useState("");
 
 	const [mangerMail, setMangerMail] = useState("");
-
-	
 
 
 	const imagesListRef = ref(storage, "images/");
@@ -61,26 +59,27 @@ const admin = () => {
 
 
 
-	
-	
+
+
 
 	const createManager = () => {
 		console.log("manager created", mangerMail)
 		console.log("club selected", selectClub)
 
 		Axios.post("/api/user/createManager", {
-			
+
 			mailId: mangerMail.trim(),
 			club: selectClub.trim()
-			
+
 		}).then((response) => {
 			console.log(response.data);
+			Router.reload();
 		})
 			.catch((error) => {
 				console.log(error);
 			});
 
-		Router.reload();
+		
 
 
 	}
@@ -98,6 +97,7 @@ const admin = () => {
 		});
 		const name = clubName;
 		const description = clubDescription;
+
 		let fileUrl = imageRef._location.path_;
 		fileUrl = fileUrl.slice(7)
 		Axios.post("/api/club/create", {
@@ -106,11 +106,12 @@ const admin = () => {
 			fileUrl: fileUrl,
 		}).then((response) => {
 			console.log(response.data);
+			Router.reload();
 		})
 			.catch((error) => {
 				console.log(error);
 			});
-		Router.reload();
+		
 	};
 
 
@@ -138,7 +139,7 @@ const admin = () => {
 					<p className='text-base text-white mr-10' onClick={() => window.location.href = '/'}>
 						Clubs
 					</p>
-					
+
 					<p className='text-base text-white  mr-10' onClick={() => window.location.href = '/admin'}>
 						Admin
 					</p>
@@ -157,7 +158,7 @@ const admin = () => {
 
 
 
-		
+
 			<div className='admin' >
 				<div className='admin_left'>
 					<div className='admin_create_club'>
@@ -167,8 +168,8 @@ const admin = () => {
 								<label className="block text-gray-700 text-sm font-bold mb-2" for="Club Name">
 									Club Name
 								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Club Name" 
-							
+								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Club Name"
+
 									onChange={(e) => setClubName(e.target.value)}
 								>
 								</input>
@@ -196,7 +197,7 @@ const admin = () => {
 						</form>
 					</div>
 
-					
+
 
 					<div className='admin_create_manager'>
 						<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
@@ -220,11 +221,11 @@ const admin = () => {
 								}}>
 									<option>---Select Club---</option>
 									{clubNames.map((option) => (
-										
+
 										<option value={option.name}>{option.name}</option>
 									))}
 								</select>
-							
+
 
 							</div>
 

@@ -36,15 +36,11 @@ const temp = () => {
 			else {
 				console.log("user logged in")
 				localStorage.setItem("email", email);
-
-
 				if (email == "admin") {
 					window.location.href = "/admin"
-
 				}
 				else {
 					window.location.href = "/manager_member"
-
 				}
 			}
 
@@ -91,21 +87,21 @@ const temp = () => {
 							LOGIN
 						</button>
 					</div>
-					<div className="flex items-center justify-between">
-						<div>
+					<div className="flex items-center justify-around auth_button_div">
+						<div className='text-blue-500' onClick={() => window.location.href = '/forgotPassword'}>
+							Forgot Password ?
 
 						</div>
 
-						<div>
+						<div className='text-blue-500' onClick={() => window.location.href = '/changePassword'}>
+							Change Password ?
 
 
 						</div>
 
 						
 
-						Change Password?
-
-
+		
 					</div>
 				</form>
 			</div>

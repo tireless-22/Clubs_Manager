@@ -16,13 +16,7 @@ const Index = () => {
   if (typeof window !== 'undefined') {
     console.log(localStorage.getItem("email"))
     localStorage.getItem("email") ? userMail = localStorage.getItem("email") : userMail = "null";
-
-
-
-
-
     userMail = localStorage.getItem("email")
-
   }
 
   console.log(userMail)
@@ -54,7 +48,6 @@ const Index = () => {
           <p className='text-2xl text-white ml-8 '>
             Website Name
           </p>
-          <Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2Fde05aae1-54e0-4f3d-8e19-a87220731f81?alt=media" width={50} height={50} />
         </div>
         {
           userMail ? (
@@ -108,6 +101,8 @@ const Index = () => {
 
 
       </div>
+
+
       <div className="landing_main_div">
 
         <div className='landing_main_div_college bg-slate-300'>
