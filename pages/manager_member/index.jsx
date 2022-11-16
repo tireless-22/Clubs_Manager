@@ -47,7 +47,7 @@ const index = () => {
 	// const router = useRouter();
 
 	let userMail = ""
-	
+
 
 	if (typeof window !== 'undefined') {
 		console.log(localStorage.getItem("email"))
@@ -60,14 +60,14 @@ const index = () => {
 		userMail = localStorage.getItem("email")
 		console.log(userMail)
 	}
-	
-
-
-	
 
 
 
-	
+
+
+
+
+
 
 	const messagesEndRef = useRef(null);
 	// const userMail = "19131a0498@gvpce.ac.in";
@@ -85,6 +85,16 @@ const index = () => {
 
 	const [imageUpload, setImageUpload] = useState(null);
 	const [imageUrls, setImageUrls] = useState([]);
+
+
+	const [error1, setError1] = useState("")
+	const [passMessage1, setPassMessage1] = useState("")
+
+
+	const [error2, setError2] = useState("")
+	const [passMessage2, setPassMessage2] = useState("")
+
+
 
 
 
@@ -148,34 +158,52 @@ const index = () => {
 		console.log(postDescription)
 
 
+		if (heading === '' || postDescription === '') {
+			setError1("Please fill all the fields")
+		}
+
+
 		if (imageUpload == null) return;
 		const imageRef = ref(storage, `images/${v4()}`);
-
 		uploadBytes(imageRef, imageUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
-				setImageUrls((prev) => [...prev, url]);
+				let fileUrl = imageRef._location.path_;
+
+
+
+
+
+				fileUrl = fileUrl.slice(7)
+				axios.post("/api/post/create", {
+					userId: userMail,
+					clubId: club,
+					heading: heading.trim(),
+					description: postDescription.trim(),
+					fileUrl: fileUrl,
+				})
+					.then((response) => {
+						console.log(response.data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				
+				setPassMessage1("Post created successfully")
+
+
+
 			});
 		});
 
 
 
-		let fileUrl = imageRef._location.path_;
 
-		fileUrl = fileUrl.slice(7)
-		axios.post("/api/post/create", {
-			userId: userMail,
-			clubId: club,
-			heading: heading.trim(),
-			description: postDescription.trim(),
-			fileUrl: fileUrl,
-		}).then((response) => {
-			console.log(response.data);
-		})
-			.catch((error) => {
-				console.log(error);
-			});
+
+
 
 	};
+
+
 
 	if (clubDataError) return <div>failed to load</div>
 	if (!clubData) return <div><Loading /></div>
@@ -188,7 +216,7 @@ const index = () => {
 					<p className='text-2xl text-white ml-8 '>
 						Website Name
 					</p>
-					
+
 				</div>
 				<div className='rightNav'>
 					<p className='text-base pt-3 mr-10 text-white' onClick={() => window.location.href = '/'}>
@@ -214,7 +242,7 @@ const index = () => {
 
 
 
-			
+
 			<div className="manage_main_div">
 
 				<div className="manage_main_div_left bg-gray-700 ">
@@ -368,6 +396,13 @@ const index = () => {
 							>
 								Create a Club
 							</button>
+							<p className='text-red-500'>
+								{error1}
+							</p>
+							<p className='text-green-500'>
+								{passMessage1}
+							</p>
+
 						</div>
 					</form>
 				</div>
