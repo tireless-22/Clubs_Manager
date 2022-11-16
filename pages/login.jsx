@@ -13,12 +13,19 @@ const temp = () => {
 
 	const [email, setEmail] = React.useState('')
 	const [passwrord, setPassword] = React.useState('')
-	const [error, setError] = React.useState('')
 
+
+	const [error, setError] = React.useState('')
+	const [passMessage, setPassMessage] = useState("")
 	const login = () => {
 		console.log("from login")
 		console.log(email)
 		console.log(passwrord)
+
+		if (email === '' || passwrord === '' ) {
+			setError('Please fill all the fields')
+			return
+		}
 
 		axios.post("/api/user/login", {
 
@@ -36,6 +43,7 @@ const temp = () => {
 			else {
 				console.log("user logged in")
 				localStorage.setItem("email", email);
+				setPassMessage("Login Successfull")
 				if (email == "admin") {
 					window.location.href = "/admin"
 				}
@@ -86,6 +94,12 @@ const temp = () => {
 						>
 							LOGIN
 						</button>
+						<p className='text-red-500'>
+							{error}
+						</p>
+						<p className='text-green-500'>
+							{passMessage}
+						</p>
 					</div>
 					<div className="flex items-center justify-around auth_button_div">
 						<div className='text-blue-500' onClick={() => window.location.href = '/forgotPassword'}>

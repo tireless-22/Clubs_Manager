@@ -8,7 +8,7 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
-var password = 'helugghghhglo2'
+
 
 var mailOptions = {
 	from: 'gvpceallclubs@gmail.com',

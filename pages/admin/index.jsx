@@ -41,7 +41,7 @@ const admin = () => {
 	const Router = useRouter();
 
 	const [imageUpload, setImageUpload] = useState(null);
-	const [imageUrls, setImageUrls] = useState([]);
+	
 
 	const [clubName, setClubName] = useState("");
 	const [clubDescription, setClubDescription] = useState("");
@@ -51,20 +51,29 @@ const admin = () => {
 	const [mangerMail, setMangerMail] = useState("");
 
 
+	const [error, setError] = React.useState('')
+	const [passMessage, setPassMessage] = useState("")
+
+
+	const [error1, setError1] = useState("")
+	const [passMessage1, setPassMessage1] = useState("")
+
+
 	const imagesListRef = ref(storage, "images/");
 
 
 	const { data: clubNames, error: clubNamesError } = useSWRImmutable('/api/club/getNames', getFetcher)
 	console.log(clubNames)
 
-
-
-
-
-
 	const createManager = () => {
+		setPassMessage1("")
+		setError1("")
 		console.log("manager created", mangerMail)
 		console.log("club selected", selectClub)
+		if (mangerMail == "" || selectClub == "") {
+			setError1("Please fill all the fields")
+			return;
+		}
 
 		Axios.post("/api/user/createManager", {
 
@@ -73,55 +82,62 @@ const admin = () => {
 
 		}).then((response) => {
 			console.log(response.data);
+			setPassMessage1("Manager Created")
 			Router.reload();
 		})
 			.catch((error) => {
 				console.log(error);
 			});
 
-		
-
-
 	}
-
-
 	const createClub = () => {
+		setError("")
 
-		if (imageUpload == null) return;
+
+		if (imageUpload == null || clubName === '' || clubDescription === '') {
+			setError('Please fill all the fields')
+			return;
+		}
+
+
 		const imageRef = ref(storage, `images/${v4()}`);
+
 
 		uploadBytes(imageRef, imageUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
-				setImageUrls((prev) => [...prev, url]);
-			});
-		});
-		const name = clubName;
-		const description = clubDescription;
 
-		let fileUrl = imageRef._location.path_;
-		fileUrl = fileUrl.slice(7)
-		Axios.post("/api/club/create", {
-			name: name.trim(),
-			description: description.trim(),
-			fileUrl: fileUrl,
-		}).then((response) => {
-			console.log(response.data);
-			Router.reload();
-		})
-			.catch((error) => {
-				console.log(error);
+				const name = clubName;
+				const description = clubDescription;
+				console.log(url)
+
+				
+				let fileUrl = imageRef._location.path_;
+				fileUrl = fileUrl.slice(7)
+
+
+
+
+				Axios.post("/api/club/create", {
+					name: name.trim(),
+					description: description.trim(),
+					fileUrl: fileUrl,
+				}).then((response) => {
+					console.log(response.data);
+					setPassMessage("Club created successfully")
+					Router.reload();
+				})
+					.catch((error) => {
+						console.log(error);
+					});
+
 			});
-		
+		});		
 	};
-
-
 
 
 	if (!clubNames) {
 		return <Loading />
 	}
-
-
 
 
 
@@ -193,6 +209,12 @@ const admin = () => {
 								>
 									Create a Club
 								</button>
+								<p className='text-red-500'>
+									{error}
+								</p>
+								<p className='text-green-500'>
+									{passMessage}
+								</p>
 							</div>
 						</form>
 					</div>
@@ -237,6 +259,12 @@ const admin = () => {
 								>
 									Create a Manager
 								</button>
+								<p className='text-red-500'>
+									{error1}
+								</p>
+								<p className='text-green-500'>
+									{passMessage1}
+								</p>
 							</div>
 						</form>
 					</div>
