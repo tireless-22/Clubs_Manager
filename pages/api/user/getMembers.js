@@ -10,16 +10,19 @@ export default async function handler(
 ) {
 	console.log("hello there ************************************************************")
 	console.log(req.body)
+	console.log("from members url")
 
 
 
-	const name = req.query.name;
+	const clubId = req.query.clubId;
+	console.log(clubId)
 
 
 
-	const messages = await prisma.post.findMany({
+	const users = await prisma.userClub.findMany({
 		where: {
-			name: name
+			clubId: clubId,
+			role:1
 		},
 		orderBy: {
 			createdAt: 'asc'
@@ -28,14 +31,7 @@ export default async function handler(
 
 	})
 
+	console.log("users", users)
 
-
-	res.status(200).json(messages)
-
-
-
-
-
-
-
+	res.status(200).json(users)
 }

@@ -29,6 +29,7 @@ import { v4 } from "uuid";
 import InputEmoji from "react-input-emoji";
 
 import Loading from '../../components/loading';
+import { async } from '@firebase/util';
 ;
 
 const customStyles = {
@@ -50,7 +51,7 @@ const index = () => {
 
 
 	if (typeof window !== 'undefined') {
-		console.log(localStorage.getItem("email"))
+		// console.log(localStorage.getItem("email"))
 		localStorage.getItem("email") ? userMail = localStorage.getItem("email") : userMail = "null";
 
 		userMail == "null" ? window.location.href = "/login" : console.log("user logged in")
@@ -58,7 +59,7 @@ const index = () => {
 
 
 		userMail = localStorage.getItem("email")
-		console.log(userMail)
+		// console.log(userMail)
 	}
 
 
@@ -96,7 +97,9 @@ const index = () => {
 	const [error2, setError2] = useState("")
 	const [passMessage2, setPassMessage2] = useState("")
 
+	const [membersInClub, setMembersInClub] = useState([]);
 
+	const [clubInfo, setClubInfo] = useState({});
 
 
 
@@ -115,7 +118,7 @@ const index = () => {
 
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
-	console.log(clubData)
+	// console.log(clubData)
 
 
 	const scrollToBottom = () => {
@@ -123,25 +126,28 @@ const index = () => {
 	}
 
 	const addMemb = () => {
-		console.log(addMember)
+		// console.log(addMember)
 		
 		axios.post('/api/user/createMember', {
 			mailId: addMember,
 			clubId: club
 		})
 			.then((response) =>{
-				console.log(response);
+				// console.log(response);
 				setError2("")
 				setPassMessage2("Member Added")
-				console.log(passMessage2)
+				// console.log(passMessage2)
 			})
 			.catch( (error) =>{	
-				console.log(error);
+				// console.log(error);
 				setError2("Member not added")
 				setPassMessage2("")
-				console.log(error2)
+				// console.log(error2)
 			});
+		
+		
 
+		memberInGroup()
 
 
 
@@ -155,15 +161,46 @@ const index = () => {
 
 	const onChatGrps = async () => {
 
+		const res1 = await axios.get(
+			`/api/user/get?user=${userMail}&club=${club}`
+		);
+		
+
+		setClubInfo(res1.data);
+		console.log("clubInfo",clubInfo)
+
+
+
 		const res = await axios.get(
 			`/api/message/getByClub?clubId=${club}`
 		);
 		setMessageInGroup(res.data);
-		console.log(messagesInGroup)
+
+
+		
+		memberInGroup()
+
+
+		
 	};
 
+	const memberInGroup = async() => {
+		await axios.get(`api/user/getMembers?clubId=${club}`)
+			.then((res) => {
+				setMembersInClub(res.data)
+				// console.log("members in club",membersInClub)
+				// console.log("members in club", res.data)
+			})
+			.catch((e) => {
+				console.log(e);
+			})
+
+		// console.log(messagesInGroup)
+		
+	}
+
 	const handleOnEnter = async () => {
-		console.log(textBoxMessage)
+		// console.log(textBoxMessage)
 
 		let msg = textBoxMessage.trim();
 		if (msg.length !== 0) {
@@ -179,14 +216,16 @@ const index = () => {
 		}
 		onChatGrps();
 
+		
+
 
 		setTextBoxMessage("");
 	}
 
 
 	const createPost = () => {
-		console.log(heading)
-		console.log(postDescription)
+		// console.log(heading)
+		// console.log(postDescription)
 
 
 		if (heading === '' || postDescription === '') {
@@ -213,10 +252,10 @@ const index = () => {
 					fileUrl: fileUrl,
 				})
 					.then((response) => {
-						console.log(response.data);
+						// console.log(response.data);
 					})
 					.catch((error) => {
-						console.log(error);
+						// console.log(error);
 					});
 
 				setPassMessage1("Post created successfully")
@@ -233,6 +272,9 @@ const index = () => {
 
 
 	};
+
+	// console.log("clubInfo", clubInfo)
+	// console.log("club", club)
 
 
 
@@ -284,6 +326,7 @@ const index = () => {
 
 								{clubData.map((club) => (
 									<li onClick={() => {
+										// console.log(club.name)
 										setClub(club.clubId);
 										onChatGrps();
 									}} >
@@ -301,6 +344,7 @@ const index = () => {
 
 
 				<div className='manage_main_div_right'>
+					{/* NAVBAR */}
 
 					<div className="manage_main_div_right_top ">
 						<div className="manage_main_div_right_top_left">
@@ -310,19 +354,29 @@ const index = () => {
 							</div>
 						</div>
 
-						<div className="manage_main_div_right_top_right">
-							<div className='manager_manage_div bg-red-200' onClick={() => {
-								setManageMembers(true);
-							}}>
-								<Image src={manageMemvers} alt="manageMemvers" width={40} height={40} />
+						{
+							clubInfo.role === 2 &&
+							<div className="manage_main_div_right_top_right">
+								<div className='manager_manage_div bg-red-200' onClick={() => {
+									setManageMembers(true);
+								}}>
+									<Image src={manageMemvers} alt="manageMemvers" width={40} height={40} />
+								</div>
+
+								<div className='manager_manage_div bg-red-200' onClick={() => {
+									setAddPost(true);
+								}}>
+									<Image src={addPostImage} alt="addPost" width={40} height={40} />
+								</div>
+
+
 							</div>
 
-							<div className='manager_manage_div bg-red-200' onClick={() => {
-								setAddPost(true);
-							}}>
-								<Image src={addPostImage} alt="addPost" width={40} height={40} />
-							</div>
-						</div>
+						}
+
+						
+
+
 					</div>
 					<div style={{
 						overflowX: "hidden",
@@ -376,6 +430,8 @@ const index = () => {
 				</div>
 			</div>
 
+
+
 			<Modal
 				isOpen={manageMembers}
 
@@ -419,6 +475,19 @@ const index = () => {
 						</p>
 
 					</div>
+
+					<h2 className='text-xl justify-between  font-sans font-semibold mt-4 mb-2'>
+						All Members
+
+					</h2>
+
+					{membersInClub.map((member) => (
+						<div key={member.id} className='flex justify-between'>
+							<p className='text-base justify-between  font-sans font-semibold mt-4 mb-2'>
+								{member.userId}
+							</p>
+							</div>
+					))}
 
 
 

@@ -18,6 +18,8 @@ const temp = () => {
 	const [error, setError] = React.useState('')
 	const [passMessage, setPassMessage] = useState("")
 	const login = () => {
+		setError("")
+		setPassMessage("")
 		console.log("from login")
 		console.log(email)
 		console.log(passwrord)
