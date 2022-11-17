@@ -34,7 +34,7 @@ export default async function handler(
 
 		const userclub = await prisma.userClub.create({
 			data: {
-				clubId: req.body.club,
+				clubId: req.body.clubId,
 				userId: req.body.mailId,
 				role: 1
 

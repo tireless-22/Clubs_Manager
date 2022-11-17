@@ -65,6 +65,8 @@ const admin = () => {
 	const { data: clubNames, error: clubNamesError } = useSWRImmutable('/api/club/getNames', getFetcher)
 	console.log(clubNames)
 
+
+
 	const createManager = () => {
 		setPassMessage1("")
 		setError1("")
@@ -82,14 +84,35 @@ const admin = () => {
 
 		}).then((response) => {
 			console.log(response.data);
-			setPassMessage1("Manager Created")
-			Router.reload();
+			
+			Axios.post("/api/mail/userAdded", {
+				mailId: mangerMail.trim(),
+				type: "manager",
+				club: selectClub.trim()
+			}).then((response) => {
+				console.log(response.data);
+			}).catch((error) => {
+				console.log(error);
+			});
+
+			setPassMessage1("Manager Created, Ask the manager to check his mail for login credentials")
+
+
+
+
+
+
+
+			// Router.reload();
 		})
 			.catch((error) => {
 				console.log(error);
 			});
 
 	}
+
+
+
 	const createClub = () => {
 		setError("")
 

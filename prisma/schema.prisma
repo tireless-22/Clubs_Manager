@@ -55,6 +55,7 @@ model UserClub {
 }
 
 model Post {
+  id        Int      @id @default(autoincrement())
   club      Club     @relation(fields: [clubId], references: [name])
   clubId    String
   user      User     @relation(fields: [userId], references: [mailId])
@@ -64,7 +65,7 @@ model Post {
   fileUrl   String
   createdAt DateTime @default(now()) @map("created_at")
 
-  @@id([clubId, userId])
+ 
 }
 
 // 0 means member

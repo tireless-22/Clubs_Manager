@@ -90,6 +90,8 @@ const index = () => {
 	const [error1, setError1] = useState("")
 	const [passMessage1, setPassMessage1] = useState("")
 
+	const [addMember, setAddMember] = useState("");
+
 
 	const [error2, setError2] = useState("")
 	const [passMessage2, setPassMessage2] = useState("")
@@ -118,6 +120,35 @@ const index = () => {
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+	}
+
+	const addMemb = () => {
+		console.log(addMember)
+		
+		axios.post('/api/user/createMember', {
+			mailId: addMember,
+			clubId: club
+		})
+			.then((response) =>{
+				console.log(response);
+				setError2("")
+				setPassMessage2("Member Added")
+				console.log(passMessage2)
+			})
+			.catch( (error) =>{	
+				console.log(error);
+				setError2("Member not added")
+				setPassMessage2("")
+				console.log(error2)
+			});
+
+
+
+
+
+		
+
+
 	}
 
 
@@ -187,7 +218,7 @@ const index = () => {
 					.catch((error) => {
 						console.log(error);
 					});
-				
+
 				setPassMessage1("Post created successfully")
 
 
@@ -352,7 +383,47 @@ const index = () => {
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
-				hello this is for manage members
+
+				<h1 className='text-2xl justify-between  font-sans font-semibold mt-4 mb-2'> Manage Members</h1>
+
+
+				<div className='admin_create_club w-96'>
+
+
+					<div className="mb-4">
+						<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+							Mail Id
+						</label>
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Mail Id"
+
+							onChange={(e) => setAddMember(e.target.value)}
+						>
+						</input>
+					</div>
+
+
+
+
+
+					<div className="flex items-center justify-between">
+						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+							onClick={addMemb}
+						>
+							Add a member
+						</button>
+						<p className='text-red-500'>
+							{error2}
+						</p>
+						<p className='text-green-500'>
+							{passMessage2}
+						</p>
+
+					</div>
+
+
+
+				</div>
+
 			</Modal>
 
 
