@@ -13,13 +13,13 @@ export default async function handler(
 
 
 
-	const name = req.query.name;
+	const name = req.query.clubId;
 
 
 
 	const messages = await prisma.post.findMany({
 		where: {
-			name: name
+			clubId: name
 		},
 		orderBy: {
 			createdAt: 'asc'

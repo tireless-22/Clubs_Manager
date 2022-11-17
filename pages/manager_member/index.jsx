@@ -296,7 +296,7 @@ const index = () => {
 						Clubs
 					</p>
 
-					<p className='text-base mr-10 pt-3 text-white  ' onClick={() => window.location.href = '/admin'}>
+					<p className='text-base mr-10 pt-3 text-white  ' onClick={() => window.location.href = '/manager_member'}>
 						Manager / Member
 					</p>
 					<p className='text-base text-white bg-blue-700 mt-4 pt-2 pb-2 pl-2 pr-2  mr-10' onClick={
