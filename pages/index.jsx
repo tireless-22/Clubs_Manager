@@ -105,13 +105,21 @@ const Index = () => {
 
       <div className="landing_main_div">
 
-        <div className='landing_main_div_college bg-slate-300'>
+        {/* <div className='landing_main_div_college bg-slate-300'>
 
           <h1>
             Some crucial information about the College
           </h1>
 
+        </div> */}
+        <div className='flex flex-col justify-center items-center'>
+          <h1 className='text-3xl'>
+            CLUBS
+          </h1>
+
         </div>
+
+        <h1></h1>
 
         <div className='landing_main_div_clubs'>
           {

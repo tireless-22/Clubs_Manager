@@ -306,7 +306,13 @@
 	padding-right: 50px;
 }
 
-
+.landing_page_club_card_image{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+	width: 300px;
+}
 
 
 
