@@ -83,6 +83,7 @@ const verify = () => {
 							Enter New Password
 						</label>
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter New Password"
+							autocomplete="off"
 							onChange={(e) => setNewPassword(e.target.value)}
 						>
 						</input>
@@ -92,6 +93,7 @@ const verify = () => {
 							ReEnter New Password
 						</label>
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="text" placeholder="ReEnter New Password"
+							autocomplete="off"
 							onChange={(e) => setReNewPassword(e.target.value)}
 						>
 						</input>

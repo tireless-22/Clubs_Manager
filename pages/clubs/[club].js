@@ -49,7 +49,7 @@ const Club = () => {
 	}
 	return (
 
-		<div className='index_main'>
+		<div className='ind_club_main'>
 			<div className='topNav dark:bg-gray-900'>
 				<div className='leftNav'>
 					<p className='text-2xl text-white ml-8 '>
@@ -109,7 +109,7 @@ const Club = () => {
 
 			</div>
 
-			<div className="manage_main_div">
+			<div className="ind_club_header">
 				<div className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
 					<h1>
 						{clubData.name}
@@ -120,24 +120,46 @@ const Club = () => {
 					<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} width={200} height={200} />
 				</div>
 
+				
+
+
+				
+
+
+
+			</div>
+			<h1 className='text-3xl pl-6 '>
+
+
+				Posts
+
+			</h1>
+
+			<div className='ind_post_main pl-4'>
+				
 
 				{
 					posts.length !== 0 &&
 					posts.map((post) => (
 
-						<div className='' >
-							<h1>
-
-							</h1>
-
-							<p>{post.userId}</p>
-							<p>{post.header}</p>
-							<p>{post.paragraph}</p>
+						<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
 
 
 
-							<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={200} height={200} />
+							<div className='ind_club_post_header'>
+								<p className='text-xl pl-6'>{post.header}</p>
+								<p className='text-small'>{post.userId}</p>
 
+
+							</div>
+						
+
+							<div className='ind_club_post_image'>
+							<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+								</div>
+
+							
+							<p className='pl-6'>{post.paragraph}</p>
 
 						</div>
 

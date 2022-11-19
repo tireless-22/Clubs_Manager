@@ -96,6 +96,7 @@ const changePassword = () => {
 							Gmail
 						</label>
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"
+							autocomplete="off"
 							onChange={(e) => setEmail(e.target.value)}
 						>
 						</input>
@@ -105,7 +106,8 @@ const changePassword = () => {
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							Current Password
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="text" placeholder="Password"
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="password" placeholder="Password"
+							autocomplete="off"
 							onChange={(e) => setPassword(e.target.value)}
 						>
 						</input>
@@ -115,7 +117,8 @@ const changePassword = () => {
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							Enter New Password
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="text" placeholder="Password"
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="password" placeholder="Password"
+							autocomplete="off"
 							onChange={(e) => setNewPassword(e.target.value)}
 						>
 						</input>
@@ -127,7 +130,8 @@ const changePassword = () => {
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							ReEnter New Password
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="text" placeholder="Password"
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="password" placeholder="Password"
+							autocomplete="off"
 							onChange={(e) => setNewPassword1(e.target.value)}
 						>
 						</input>

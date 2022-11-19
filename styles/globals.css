@@ -9,6 +9,7 @@
 
 }
 
+
 .topNav{
 	display: flex;
 	background-color: rgb(20, 14, 14);
@@ -68,7 +69,7 @@
 	display: flex;
 	flex:3;
 	flex-direction: column;
-	background-color: green;
+	/* background-color: green; */
 	overflow-y: scroll;
 
 }
@@ -241,14 +242,17 @@
 	 /* margin: 10px; */
   display: grid;
   grid-gap: 25px;
-  grid-auto-rows: 400px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 300px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	
 
 }
 
 .landing_page_club_card{
-	background-color: green;
+	display: flex;
+	flex-direction: column;
+	height: 280px;
+	width: 300px;
 }
 
 
@@ -259,8 +263,48 @@
 
 }
 
+.ind_club_main{
+	display: flex;
+	flex-direction: column;
+
+}
 
 
+.ind_club_header{
+	display: flex;
+	flex-direction: row;
+
+}
+
+.ind_post_main{
+	display: flex;
+	flex-direction: row;
+	
+
+}
+
+.ind_club_posts{
+	height: 450px;
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+	overflow:hidden;
+}
+
+
+.ind_club_post_header{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+}
+
+.ind_club_post_image{
+	display: flex;
+	padding-left:50px;
+	padding-right: 50px;
+}
 
 
 

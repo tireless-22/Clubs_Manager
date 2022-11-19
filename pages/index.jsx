@@ -117,7 +117,7 @@ const Index = () => {
           {
             clubData.map((club) => (
               <Link href={`/clubs/${club.name}`} key={club.id}>
-                <div className='landing_page_club_card' >
+                <div className='landing_page_club_card bg-white shadow-md rounded     mb-2 mt-2 ml-2 mr-2' >
                   <div className='landing_page_club_card_image'>
 
                     <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} />

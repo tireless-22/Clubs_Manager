@@ -22,7 +22,7 @@ export default async function handler(
 	const users = await prisma.userClub.findMany({
 		where: {
 			clubId: clubId,
-			role:1
+			
 		},
 		orderBy: {
 			createdAt: 'asc'

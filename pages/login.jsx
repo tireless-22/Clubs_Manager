@@ -76,6 +76,7 @@ const temp = () => {
 							Gmail
 						</label>
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"
+							autocomplete="off"
 							onChange={(e) => setEmail(e.target.value)}
 						>
 						</input>
@@ -84,7 +85,8 @@ const temp = () => {
 						<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 							Password
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="text" placeholder="Password"
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Password" type="password" placeholder="Password"
+							autocomplete="off"
 							onChange={(e) => setPassword(e.target.value)}
 						>
 						</input>
@@ -92,6 +94,7 @@ const temp = () => {
 
 					<div className="flex items-center justify-between">
 						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+							
 							onClick={login}
 						>
 							LOGIN
