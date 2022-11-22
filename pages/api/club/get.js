@@ -16,6 +16,7 @@ export default async function handler(
 		}
 	})
 
+	console.log(club)
 
 	// res.send("helo")
 

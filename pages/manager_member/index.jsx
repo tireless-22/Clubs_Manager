@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
-import TopNav from '../../components/topNav'
+
 import useSWRImmutable from 'swr/immutable';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import Modal from 'react-modal';
 
+
+import { Dropdown, Menu, Space } from 'antd';
 import { getFetcher } from "../../utils/swr_utils"
 import Image from 'next/image';
 import Link from 'next/link';
-import manageMemvers from "../../Images/manageMembers.png"
-import addPostImage from "../../Images/addPost.png"
 
-import { useRouter } from 'next/router';
+import "antd/dist/antd.css";
+import { DatePicker } from 'antd';
+
 
 
 import {
@@ -42,6 +44,11 @@ const customStyles = {
 		transform: 'translate(-50%, -50%)',
 	},
 };
+
+
+
+
+
 
 const index = () => {
 
@@ -82,6 +89,7 @@ const index = () => {
 
 	const [heading, setHeading] = React.useState("");
 	const [postDescription, setPostDescription] = React.useState("");
+	const [eventDate,setEventDate]=useState()
 
 
 	const [imageUpload, setImageUpload] = useState(null);
@@ -100,6 +108,43 @@ const index = () => {
 	const [membersInClub, setMembersInClub] = useState([]);
 
 	const [clubInfo, setClubInfo] = useState({});
+
+
+	// Detailed Club Info
+
+	const [detailedClubInfoModal, setDetailedClubInfoModal] = useState(false)
+	
+	{/* about
+clubType
+facebookUrl
+gamil
+instagramUrl
+quatotion
+twitterUrl
+youtubeUrl */}
+
+
+	const [aboutTheClub, setAboutTheClub] = useState("")
+	const [facebookUrl, setFacebookUrl] = useState("")
+	const [gmail, setGmail] = useState("")
+	const [instagramUrl, setInstagramUrl] = useState("")
+	const[quatotion, setQuatotion] = useState("")
+	const [twitterUrl, setTwitterUrl] = useState("")
+	const [youtubeUrl, setYoutubeUrl] = useState("")
+	const [clubType, setClubType] = useState("")
+
+	const [error3, setError3] = useState("")
+	const [passMessage3, setPassMessage3] = useState("")
+
+	const [clubDetails, setClubDetails] = useState({})
+	
+
+
+
+
+
+
+
 
 
 
@@ -127,32 +172,32 @@ const index = () => {
 
 	const addMemb = () => {
 		// console.log(addMember)
-		
+
 		axios.post('/api/user/createMember', {
 			mailId: addMember,
 			clubId: club
 		})
-			.then((response) =>{
+			.then((response) => {
 				// console.log(response);
 				setError2("")
 				setPassMessage2("Member Added")
 				// console.log(passMessage2)
 			})
-			.catch( (error) =>{	
+			.catch((error) => {
 				// console.log(error);
 				setError2("Member not added")
 				setPassMessage2("")
 				// console.log(error2)
 			});
-		
-		
+
+
 
 		memberInGroup()
 
 
 
 
-		
+
 
 
 	}
@@ -164,10 +209,10 @@ const index = () => {
 		const res1 = await axios.get(
 			`/api/user/get?user=${userMail}&club=${club}`
 		);
-		
+
 
 		setClubInfo(res1.data);
-		console.log("clubInfo",clubInfo)
+		// console.log("clubInfo", clubInfo)
 
 
 
@@ -176,15 +221,24 @@ const index = () => {
 		);
 		setMessageInGroup(res.data);
 
+		const res2 = await axios.get(
+			`/api/club/get?club=${club}`
+		)
 
-		
+		setClubDetails(res2.data);
+		// console.log(res2.data)
+
+
+
+
+
 		memberInGroup()
 
 
-		
+
 	};
 
-	const memberInGroup = async() => {
+	const memberInGroup = async () => {
 		await axios.get(`api/user/getMembers?clubId=${club}`)
 			.then((res) => {
 				setMembersInClub(res.data)
@@ -196,7 +250,7 @@ const index = () => {
 			})
 
 		// console.log(messagesInGroup)
-		
+
 	}
 
 	const handleOnEnter = async () => {
@@ -216,7 +270,7 @@ const index = () => {
 		}
 		onChatGrps();
 
-		
+
 
 
 		setTextBoxMessage("");
@@ -226,6 +280,7 @@ const index = () => {
 	const createPost = () => {
 		// console.log(heading)
 		// console.log(postDescription)
+		// console.log("eventDate",eventDate)
 
 
 		if (heading === '' || postDescription === '') {
@@ -248,6 +303,7 @@ const index = () => {
 					userId: userMail,
 					clubId: club,
 					heading: heading.trim(),
+					eventDate:eventDate,
 					description: postDescription.trim(),
 					fileUrl: fileUrl,
 				})
@@ -265,13 +321,80 @@ const index = () => {
 			});
 		});
 
-
-
-
-
-
-
 	};
+
+	const createClubDetails = () => {
+
+		// const [aboutTheClub, setAboutTheClub] = useState("")
+		// const [facebookUrl, setFacebookUrl] = useState("")
+		// const [gmail, setGmail] = useState("")
+		// const [instagramUrl, setInstagramUrl] = useState("")
+		// const [quatotion, setQuatotion] = useState("")
+		// const [twitterUrl, setTwitterUrl] = useState("")
+		// const [youtubeUrl, setYoutubeUrl] = useState("")
+		// const [clubType, setClubType] = useState("")
+
+
+		// if (aboutTheClub === '' || facebookUrl === '' || gmail === '' || instagramUrl === '' || quatotion === '' || twitterUrl === '' || youtubeUrl === '' || clubType === '') {
+		// 	setError3("Please fill all the fields")
+		// 	return;
+
+		// }
+
+		axios.post("/api/club/updateClub", {
+			clubName: club,
+			aboutTheClub: aboutTheClub.trim(),
+			facebookUrl: facebookUrl.trim(),
+			gmail: gmail.trim(),
+			instagramUrl: instagramUrl.trim(),
+			quotation: quatotion.trim(),
+			twitterUrl: twitterUrl.trim(),
+			youtubeUrl: youtubeUrl.trim(),
+			clubType: clubType.trim(),
+		})
+
+
+		setPassMessage3("Club details updated successfully")
+
+
+
+		
+
+
+
+
+
+
+
+	
+	}
+
+
+
+
+
+
+	{/* set */ }
+	{/* setManageMembers(true); */ }
+	{/* setAddPost(true); */ }
+
+	const menu = (
+		<Menu>
+			<Menu.Item onClick={() => {
+				setManageMembers(true);
+				setAddPost(false);
+			}}>Add Members</Menu.Item>
+			<Menu.Item onClick={() => {
+				setAddPost(true);
+				setManageMembers(false);
+			}}>Create a Event</Menu.Item>
+
+			<Menu.Item onClick={() => {
+				setDetailedClubInfoModal(true)
+			}}>Club Details</Menu.Item>
+		</Menu>
+	);
+
 
 	// console.log("clubInfo", clubInfo)
 	// console.log("club", club)
@@ -346,38 +469,28 @@ const index = () => {
 				<div className='manage_main_div_right'>
 					{/* NAVBAR */}
 
-					<div className="manage_main_div_right_top ">
-						<div className="manage_main_div_right_top_left">
-							<div className=' text-white text-xl'>
+					<div className="manage_main_div_right_top pl-2 pr-2 ">
 
-								{club}
-							</div>
+						<div className=' text-white text-xl'>
+							{club}
+						</div>
+						{/* set */}
+						{/* setManageMembers(true); */}
+						{/* setAddPost(true); */}
+						<div>
+
+
+							{
+								clubInfo.role === 2 && (
+									<Dropdown.Button overlay={menu} >
+										Manage Club
+									</Dropdown.Button>
+								)
+							}
 						</div>
 
-						{
-							clubInfo.role === 2 &&
-							<div className="manage_main_div_right_top_right">
-								<div className='manager_manage_div bg-red-200' onClick={() => {
-									setManageMembers(true);
-								}}>
-									<Image src={manageMemvers} alt="manageMemvers" width={40} height={40} />
-								</div>
-
-								<div className='manager_manage_div bg-red-200' onClick={() => {
-									setAddPost(true);
-								}}>
-									<Image src={addPostImage} alt="addPost" width={40} height={40} />
-								</div>
-
-
-							</div>
-
-						}
-
-						
-
-
 					</div>
+
 					<div style={{
 						overflowX: "hidden",
 
@@ -417,6 +530,9 @@ const index = () => {
 						</div>
 
 					</div>
+
+
+
 					<div className="manage_main_div_right_bottom">
 						<InputEmoji
 							value={textBoxMessage}
@@ -431,6 +547,8 @@ const index = () => {
 			</div>
 
 
+
+			{/* For adding manager */}
 
 			<Modal
 				isOpen={manageMembers}
@@ -486,7 +604,7 @@ const index = () => {
 							<p className='text-base justify-between  font-sans font-semibold mt-4 mb-2'>
 								{member.userId}
 							</p>
-							</div>
+						</div>
 					))}
 
 
@@ -496,6 +614,11 @@ const index = () => {
 			</Modal>
 
 
+
+
+
+
+			{/* For adding a event */}
 			<Modal
 				isOpen={addPost}
 
@@ -508,7 +631,7 @@ const index = () => {
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Post</h1>
 						<div className="mb-4">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
-								Heading
+								Event Heading
 							</label>
 							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Heading"
 
@@ -519,7 +642,7 @@ const index = () => {
 
 						<div className="mb-4">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Description">
-								Post Description
+								Event Description
 							</label>
 							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Descriptioin" type="text" placeholder="Post Description"
 								onChange={(e) => setPostDescription(e.target.value)}
@@ -529,6 +652,10 @@ const index = () => {
 						<div className="mb-4">
 							<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
 								onChange={(e) => setImageUpload(e.target.files[0])} />
+						</div>
+
+						<div className="flex items-center justify-between">
+							<DatePicker onChange={(date) => setEventDate(date)} />,	
 						</div>
 						<div className="flex items-center justify-between">
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
@@ -549,6 +676,169 @@ const index = () => {
 
 
 			</Modal>
+
+
+
+			{/* Detailed Club Info */}
+
+
+
+			<Modal
+				isOpen={detailedClubInfoModal}
+				// className="w-96"
+			
+
+				onRequestClose={() => setDetailedClubInfoModal(false)}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				<div className='admin_create_club '>
+					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
+						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
+{/* about
+clubType
+facebookUrl
+gamil
+instagramUrl
+quatotion
+twitterUrl
+youtubeUrl */}
+
+						
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								About the Club
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="About the Club"
+								value={clubDetails.about}
+								onChange={(e) => setAboutTheClub(e.target.value)}
+							>
+							</input>
+						</div>
+
+						
+						
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
+								Club Type
+							</label>
+							<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value={clubDetails.clubType} onChange={(e) => {
+								setClubType(e.target.value);
+								
+							}}>
+								<option>--- Select Club Type ---</option>
+							
+
+								<option value="Technical Clubs">Technical Clubs</option>
+								<option value="Social Clubs">Social Clubs</option>
+						
+							</select>
+
+
+						</div>
+
+
+						
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Facebook Url
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Facebook Url"
+								value={clubDetails.facebookUrl}
+								onChange={(e) => setFacebookUrl(e.target.value)}
+							>
+							</input>
+						</div>
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Gmail
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Gmail"
+								value={clubDetails.gmail}
+								onChange={(e) => setGmail(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Instagram Url
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Instagram Url"
+								value={clubDetails.instagramUrl}			
+								onChange={(e) => setInstagramUrl(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Twitter Url
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Twitter Url"
+								value={clubDetails.twitterUrl}
+								onChange={(e) => setTwitterUrl(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Youtube Url
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Youtube Url"
+						value={clubDetails.youtubeUrl}
+								onChange={(e) => setYoutubeUrl(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Quatotion
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Quatotion"
+						value={clubDetails.quotation}
+								onChange={(e) => setQuatotion(e.target.value)}
+							>
+							</input>
+						</div>
+
+						
+			
+
+						
+						<div className="flex items-center justify-between">
+							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+								onClick={createClubDetails}
+							>
+								Create a Club
+							</button>
+							<p className='text-red-500'>
+								{error3}
+							</p>
+							<p className='text-green-500'>
+								{passMessage3}
+							</p>
+
+						</div>
+					</form>
+				</div>
+
+
+			</Modal>
+
+
+
+
 		</div>
 	)
 }

@@ -108,11 +108,13 @@
 
 .manage_main_div_right_top{
 	height: 50px;
+	
   /* Modification3 */
   background-color: #303056;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+	align-items: center;
 
 }
 
@@ -320,7 +322,18 @@
 
 
 
+.modal_form{
+	display: flex;
+	width: 700px;
+	flex-direction: column;
+}
 
+.form_row{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
 
 
 

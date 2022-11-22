@@ -10,13 +10,14 @@ export default async function handler(
 	console.log(req.body)
 
 
-	const club = await prisma.post.create({
+	const club = await prisma.event.create({
 		data: {
 			userId: req.body.userId,
 			clubId:req.body.clubId,
 			header: req.body.heading,
 			paragraph: req.body.description,
 			fileUrl: req.body.fileUrl,
+			eventDate: req.body.eventDate,
 
 		},
 	})

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,14 +8,33 @@ datasource db {
 }
 
 model Club {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique()
-  description String
-  fileUrl     String
-  createdAt   DateTime   @default(now())
-  messages    Message[]
-  userClub    UserClub[]
-  post        Post[]
+  id           Int           @id @default(autoincrement())
+  name         String        @unique()
+  quotation    String?
+  about        String?
+  clubType     String?
+  fileUrl      String?
+  gmail        String?
+  facebookUrl  String?
+  instagramUrl String?
+  twitterUrl   String?
+  youtubeUrl   String?
+  createdAt    DateTime      @default(now())
+  messages     Message[]
+  userClub     UserClub[]
+  event        Event[]
+  designation  Designation[]
+  Album        Album[]
+}
+
+model Designation {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique()
+  fileUrl         String
+  designationType String
+  club            Club     @relation(fields: [clubId], references: [name])
+  clubId          String
+  createdAt       DateTime @default(now())
 }
 
 model User {
@@ -27,20 +43,18 @@ model User {
   password  String
   messages  Message[]
   userClub  UserClub[]
-  post      Post[]
+  event     Event[]
   createdAt DateTime   @default(now()) @map("created_at")
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  club      Club     @relation(fields: [clubId], references: [name])
-  clubId    String
-  user      User     @relation(fields: [userId], references: [mailId])
-  userId    String
+  id          Int      @id @default(autoincrement())
+  club        Club     @relation(fields: [clubId], references: [name])
+  clubId      String
+  user        User     @relation(fields: [userId], references: [mailId])
+  userId      String
   description String
   createdAt   DateTime @default(now()) @map("created_at")
-
-  
 }
 
 model UserClub {
@@ -54,18 +68,33 @@ model UserClub {
   @@id([clubId, userId])
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
+model Event {
+  
   club      Club     @relation(fields: [clubId], references: [name])
   clubId    String
   user      User     @relation(fields: [userId], references: [mailId])
   userId    String
-  header    String
+  header    String  @unique()
   paragraph String
   fileUrl   String
+  eventDate DateTime
+  album     Album[]
   createdAt DateTime @default(now()) @map("created_at")
 
- 
+  @@id([clubId, header])
+}
+
+model Album {
+  id     Int    @id @default(autoincrement())
+  club   Club   @relation(fields: [clubId], references: [name])
+  clubId String
+
+  event     Event  @relation(fields: [eventName], references: [header])
+  eventName String
+
+  fileUrl String
+
+  createdAt DateTime @default(now()) @map("created_at")
 }
 
 // 0 means member
