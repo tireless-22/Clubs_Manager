@@ -386,12 +386,128 @@
 	padding: 24px;
 
 
+
 }
 
 
 .landing_page_club_main_div{
 	margin-left: 20px;
 
+}
+
+.club_page_main_logo{
+	height: 250px;
+
+}
+
+.club_page_heading{
+	font-size: 90px;
+	margin-top: 0px;
+	padding: 0px;
+}
+
+.club_page_about_us_div_total{
+	display: flex;
+	flex-direction: column;
+	
+	align-items: center;
+}
+
+.club_page_about_us_div{
+
+	display: flex;
+	margin-left:20%;
+	margin-right:20%;
+	justify-content: center;
+}
+
+.club_page_details_box{
+	display: flex;
+	height: 180px;
+	width: 900px;
+	margin:auto;
+	background-color: #303056;
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+}
+.Designation_main_div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.club_page_designations{
+	display: flex;
+	width: 60%;
+	/* background-color: red; */
+	justify-content: space-around;
+	flex-direction: row;
+	margin-left:20%;
+	margin-right:20%;
+
+}
+
+.designation_image_div{
+	display: flex;
+	width: 120px;
+	height: 120px;
+	
+}
+
+.designation_image{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+
+}
+
+
+.coursel{
+	height: 500px;
+	width: 80%;
+	margin-top: 50px;
+	margin-left: 10%;
+	margin-right: 10%;
+	/* background-color: red; */
+}
+
+.designation_box{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.item{
+	height: 100% ;
+	border:1px solid black;
+}
+
+
+.owl-carousel.owl-drag .owl-item {
+	/* background-color: red; */
+	/* border:2px solid black; */
+}
+
+
+div.owl-item.active.center{
+	/* background-color: red; */
+	transform: scale(1.3);
+	padding: 10px;
+	opacity: 1;
+	/* border: 1px solid black; */
+}
+div.owl-item.cloned.active{
+	transform: scale(0.7);
+
+	opacity: 0.3;
+}
+
+div.owl-item.active{
+	transform: scale(0.7);
+	opacity: 0.3;
 }
 
 

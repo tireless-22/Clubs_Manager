@@ -5,6 +5,8 @@ const nextConfig = {
   
 }
 
+const webpack = require("webpack");
+
 
 
 module.exports = nextConfig
@@ -20,5 +22,15 @@ module.exports = {
         pathname: '/**',
       },
     ],
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+      })
+    );
+    return config;
   },
 }
