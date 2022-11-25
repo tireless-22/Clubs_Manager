@@ -13,7 +13,7 @@ export default async function handler(
 	const club = await prisma.club.create({
 		data: {
 			name: req.body.name,
-			about: req.body.description,
+			clubType:req.body.clubType,
 			fileUrl: req.body.fileUrl,
 			
 		},

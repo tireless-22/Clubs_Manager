@@ -58,6 +58,7 @@ const admin = () => {
 	const [error1, setError1] = useState("")
 	const [passMessage1, setPassMessage1] = useState("")
 
+	const [clubType, setClubType] = useState("")
 
 	const imagesListRef = ref(storage, "images/");
 
@@ -117,7 +118,7 @@ const admin = () => {
 		setError("")
 
 
-		if (imageUpload == null || clubName === '' || clubDescription === '') {
+		if (imageUpload == null || clubName === '' || clubType==='') {
 			setError('Please fill all the fields')
 			return;
 		}
@@ -142,7 +143,7 @@ const admin = () => {
 
 				Axios.post("/api/club/create", {
 					name: name.trim(),
-					description: description.trim(),
+					clubType: clubType.trim(),
 					fileUrl: fileUrl,
 				}).then((response) => {
 					console.log(response.data);
@@ -213,15 +214,29 @@ const admin = () => {
 								>
 								</input>
 							</div>
-							<div className="mb-4">
+
+
+							<div className="mb-4 ">
 								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-									Club Description
+									Club Type
 								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Descriptioin" type="text" placeholder="Club Description"
-									onChange={(e) => setClubDescription(e.target.value)}
-								>
-								</input>
+								<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  onChange={(e) => {
+									setClubType(e.target.value);
+								}}>
+									<option>--- Select Club Type ---</option>
+
+
+									<option value="Technical Clubs">Technical Clubs</option>
+									<option value="Social Clubs">Social Clubs</option>
+									<option value="All Clubs">All Clubs</option>
+
+
+								</select>
+
+
 							</div>
+
+							
 							<div className="mb-4">
 								<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
 									onChange={(e) => setImageUpload(e.target.files[0])} />
@@ -273,6 +288,10 @@ const admin = () => {
 
 
 							</div>
+
+
+
+
 
 
 

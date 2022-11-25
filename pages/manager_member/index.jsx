@@ -89,7 +89,7 @@ const index = () => {
 
 	const [heading, setHeading] = React.useState("");
 	const [postDescription, setPostDescription] = React.useState("");
-	const [eventDate,setEventDate]=useState()
+	const [eventDate, setEventDate] = useState()
 
 
 	const [imageUpload, setImageUpload] = useState(null);
@@ -113,7 +113,7 @@ const index = () => {
 	// Detailed Club Info
 
 	const [detailedClubInfoModal, setDetailedClubInfoModal] = useState(false)
-	
+
 
 
 
@@ -121,7 +121,7 @@ const index = () => {
 	const [facebookUrl, setFacebookUrl] = useState("")
 	const [gmail, setGmail] = useState("")
 	const [instagramUrl, setInstagramUrl] = useState("")
-	const[quatotion, setQuatotion] = useState("")
+	const [quatotion, setQuatotion] = useState("")
 	const [twitterUrl, setTwitterUrl] = useState("")
 	const [youtubeUrl, setYoutubeUrl] = useState("")
 	const [clubType, setClubType] = useState("")
@@ -143,7 +143,7 @@ const index = () => {
 	const [designationType, setDesignationType] = useState("")
 	const [designationUpload, setDesignationUpload] = useState(null);
 
-	
+
 
 
 	useEffect(() => {
@@ -285,7 +285,7 @@ const index = () => {
 					userId: userMail,
 					clubId: club,
 					heading: heading.trim(),
-					eventDate:eventDate,
+					eventDate: eventDate,
 					description: postDescription.trim(),
 					fileUrl: fileUrl,
 				})
@@ -305,23 +305,15 @@ const index = () => {
 
 	const addDesignation = () => {
 		setError4("")
-
-
-
-		if (designationName == null || designationType === '' || designationUpload === '') {
+		if (designationName == '' || designationType === '' || designationUpload === '') {
 			setError4('Please fill all the fields')
 			return;
 		}
-
-
 		const imageRef = ref(storage, `images/${v4()}`);
 
 
 		uploadBytes(imageRef, designationUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
-
-				
-
 
 				let fileUrl = imageRef._location.path_;
 				fileUrl = fileUrl.slice(7)
@@ -335,11 +327,11 @@ const index = () => {
 					designationType: designationType,
 					fileUrl: fileUrl,
 					club: club
-					
+
 				}).then((response) => {
 					console.log(response.data);
 					setPassMessage4("Added or modified designation")
-					
+
 				})
 					.catch((error) => {
 						console.log(error);
@@ -354,7 +346,7 @@ const index = () => {
 
 	const createClubDetails = () => {
 
-	
+
 
 		axios.post("/api/club/updateClub", {
 			clubName: club,
@@ -370,7 +362,7 @@ const index = () => {
 
 
 		setPassMessage3("Club details updated successfully")
-	
+
 	}
 
 	const menu = (
@@ -399,7 +391,7 @@ const index = () => {
 
 		</Menu>
 
-		
+
 	);
 
 
@@ -662,7 +654,7 @@ const index = () => {
 						</div>
 
 						<div className="flex items-center justify-between">
-							<DatePicker onChange={(date) => setEventDate(date)} />,	
+							<DatePicker onChange={(date) => setEventDate(date)} />,
 						</div>
 						<div className="flex items-center justify-between">
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
@@ -693,7 +685,7 @@ const index = () => {
 			<Modal
 				isOpen={detailedClubInfoModal}
 				// className="w-96"
-			
+
 
 				onRequestClose={() => setDetailedClubInfoModal(false)}
 				style={customStyles}
@@ -702,41 +694,18 @@ const index = () => {
 				<div className='admin_create_club '>
 					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
-						
+
 						<div className="mb-4 flex flex-row form_row ">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
 								About the Club
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="About the Club"
 								value={clubDetails.about}
-								onChange={(e) => setAboutTheClub(e.target.value)}
+								onChange={(e) => { setClubDetails({ ...clubDetails, about: e.target.value }) }}
+
 							>
 							</input>
 						</div>
-
-						
-						
-						<div className="mb-4 flex flex-row form_row ">
-							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-								Club Type
-							</label>
-							<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value={clubDetails.clubType} onChange={(e) => {
-								setClubType(e.target.value);
-								
-							}}>
-								<option>--- Select Club Type ---</option>
-							
-
-								<option value="Technical Clubs">Technical Clubs</option>
-								<option value="Social Clubs">Social Clubs</option>
-						
-							</select>
-
-
-						</div>
-
-
-						
 
 						<div className="mb-4 flex flex-row form_row ">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
@@ -744,7 +713,8 @@ const index = () => {
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Facebook Url"
 								value={clubDetails.facebookUrl}
-								onChange={(e) => setFacebookUrl(e.target.value)}
+								onChange={(e) => { setClubDetails({ ...clubDetails, facebookUrl: e.target.value }) }}
+
 							>
 							</input>
 						</div>
@@ -755,7 +725,8 @@ const index = () => {
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Gmail"
 								value={clubDetails.gmail}
-								onChange={(e) => setGmail(e.target.value)}
+
+								onChange={(e) => { setClubDetails({ ...clubDetails, gmail: e.target.value }) }}
 							>
 							</input>
 						</div>
@@ -766,8 +737,9 @@ const index = () => {
 								Instagram Url
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Instagram Url"
-								value={clubDetails.instagramUrl}			
-								onChange={(e) => setInstagramUrl(e.target.value)}
+								value={clubDetails.instagramUrl}
+								onChange={(e) => { setClubDetails({ ...clubDetails, instagramUrl: e.target.value }) }}
+
 							>
 							</input>
 						</div>
@@ -779,7 +751,8 @@ const index = () => {
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Twitter Url"
 								value={clubDetails.twitterUrl}
-								onChange={(e) => setTwitterUrl(e.target.value)}
+
+								onChange={(e) => { setClubDetails({ ...clubDetails, twitterUrl: e.target.value }) }}
 							>
 							</input>
 						</div>
@@ -791,8 +764,9 @@ const index = () => {
 								Youtube Url
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Youtube Url"
-						value={clubDetails.youtubeUrl}
-								onChange={(e) => setYoutubeUrl(e.target.value)}
+								value={clubDetails.youtubeUrl}
+								onChange={(e) => { setClubDetails({ ...clubDetails, youtubeUrl: e.target.value }) }}
+
 							>
 							</input>
 						</div>
@@ -804,16 +778,16 @@ const index = () => {
 								Quatotion
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Quatotion"
-						value={clubDetails.quotation}
-								onChange={(e) => setQuatotion(e.target.value)}
+								value={clubDetails.quotation}
+								onChange={(e) => { setClubDetails({ ...clubDetails, quotation: e.target.value }) }}
 							>
 							</input>
 						</div>
 
-						
-			
 
-						
+
+
+
 						<div className="flex items-center justify-between">
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
 								onClick={createClubDetails}
@@ -841,10 +815,10 @@ const index = () => {
 
 			<Modal
 				isOpen={designationModal}
-				// className="w-96"
 
 
-				onRequestClose={() => setDetailedClubInfoModal(false)}
+
+				onRequestClose={() => setDesignationModal(false)}
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
@@ -852,14 +826,14 @@ const index = () => {
 					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
 
-				
+
 
 						<div className="mb-4 flex flex-row form_row ">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
 								Name
 							</label>
 							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Enter Name"
-								
+
 								onChange={(e) => setDesignationName(e.target.value)}
 							>
 							</input>
@@ -871,11 +845,11 @@ const index = () => {
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 								Designation Type
 							</label>
-							<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  onChange={(e) => {
+							<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => {
 								setDesignationType(e.target.value);
 
 							}}>
-								<option>--- Select Club Type ---</option>
+								<option>--- Select Designation ---</option>
 
 
 								<option value="President">President</option>
@@ -893,8 +867,8 @@ const index = () => {
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
 								Add Profile
 							</label>
-							
-							
+
+
 							<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
 								onChange={(e) => setDesignationUpload(e.target.files[0])} />
 						</div>
@@ -902,9 +876,9 @@ const index = () => {
 
 
 
-						
 
-				
+
+
 
 						<div className="flex items-center justify-between">
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"

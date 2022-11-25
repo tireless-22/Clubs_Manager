@@ -11,15 +11,16 @@ export default async function handler(
 
 
 
-	const ifExist = await prisma.designation.findUnique({
+	const ifExist = await prisma.designation.findFirst({
 		where: {
+			clubId: req.body.club,
 			designationType: req.body.designationType
 		},
 	})
 
-	// console.log(ifExist.id);
+	console.log("ifExists",ifExist);
 
-	if (ifExist.id) {
+	if (ifExist) {
 		console.log("hellow there")
 		const designation = await prisma.designation.update({
 			where: {

@@ -18,15 +18,7 @@ export default async function handler(
 		return item.name !== "All Clubs"
 	})
 	
-
 		 res.status(200).json(clubs)
-
-		
-
-
-	
-
-
 }
 
 

@@ -6,6 +6,9 @@
 
 	display: flex;
 	flex-direction: column;
+	overflow-x: hidden;
+
+
 
 }
 
@@ -241,11 +244,12 @@
 .landing_main_div_clubs{
 	/* background-color: green; */
 	padding:20px;
+	margin-left:140px;
 	 /* margin: 10px; */
   display: grid;
-  grid-gap: 25px;
-  grid-auto-rows: 300px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 50px;
+  grid-auto-rows: 256;
+  grid-template-columns: repeat(auto-fit, minmax(378px, 1fr));
 	
 
 }
@@ -340,7 +344,55 @@
 
 
 
+.flex_center{
+	display: flex;
+	justify-content: space-around;
 
+}
+
+
+
+
+
+
+.main_club_page_club_container{
+	display: flex;
+	;
+  height:256px;
+  width:378px;
+  border-radius:25px;
+/*   background-color:red; */
+  box-shadow:4px 13px 30px 1px rgb(252 56 56 / 20%);
+  border:1px solid white;
+}
+
+
+.main_club_page_club_container_mini{
+  display: relative;
+  width: 172px;
+  height: 172px;
+  margin-left: -37px;
+  margin-top:42px;
+	
+  border: 1px solid #efefef;
+  background-color: white;
+  border-radius:20px;
+  box-shadow:4px 13px 30px 1px rgb(252 56 56 / 20%);
+}
+
+
+.landing_page_round_image{
+	border-radius: 20px;
+	padding: 24px;
+
+
+}
+
+
+.landing_page_club_main_div{
+	margin-left: 20px;
+
+}
 
 
 
