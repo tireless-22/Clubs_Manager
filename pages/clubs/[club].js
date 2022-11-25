@@ -25,7 +25,7 @@ const Club = () => {
 	const club = router.query.club
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/get?club=' + club, getFetcher);
-
+	 console.log(clubData)
 
 	const { data: posts, error: postError } = useSWRImmutable('http://localhost:3000/api/post/getByClub?clubId=' + club, getFetcher);
 	console.log("posts", posts)
@@ -109,25 +109,40 @@ const Club = () => {
 
 			</div>
 
+
+
+{/* club logo and name */}
 			<div className="ind_club_header">
 				<div className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+					<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} width={200} height={200} />
 					<h1>
 						{clubData.name}
 					</h1>
 					<p>
-						{clubData.description}
+						{clubData.quotation}
 					</p>
-					<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} width={200} height={200} />
 				</div>
-
-				
-
-
-				
-
 
 
 			</div>
+
+			<div>
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<h1 className='text-3xl pl-6 '>
 
 
@@ -169,6 +184,20 @@ const Club = () => {
 
 
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		</div>
 

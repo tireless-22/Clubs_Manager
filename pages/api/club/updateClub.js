@@ -16,7 +16,7 @@ export default async function handler(
 		},
 		data: {
 			about:req.body.aboutTheClub,
-			clubType:req.body.clubType,
+	
 			facebookUrl:req.body.facebookUrl,
 			gmail:req.body.gmail,
 			instagramUrl:req.body.instagramUrl,

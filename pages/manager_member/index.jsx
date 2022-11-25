@@ -349,15 +349,16 @@ const index = () => {
 
 
 		axios.post("/api/club/updateClub", {
+
 			clubName: club,
-			aboutTheClub: aboutTheClub.trim(),
-			facebookUrl: facebookUrl.trim(),
-			gmail: gmail.trim(),
-			instagramUrl: instagramUrl.trim(),
-			quotation: quatotion.trim(),
-			twitterUrl: twitterUrl.trim(),
-			youtubeUrl: youtubeUrl.trim(),
-			clubType: clubType.trim(),
+			aboutTheClub: clubDetails.about,
+			facebookUrl: clubDetails.facebookUrl,
+			gmail: clubDetails.gmail,
+			instagramUrl: clubDetails.instagramUrl,
+			quotation: clubDetails.quotation,
+			twitterUrl: clubDetails.twitterUrl,
+			youtubeUrl: clubDetails.youtubeUrl,
+
 		})
 
 
