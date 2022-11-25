@@ -7,6 +7,8 @@ import Link from 'next/link';
 import SideNav from '../components/sideNav';
 import Loading from '../components/loading';
 
+import MainFooter from '../components/mainFooter';
+
 
 
 const Index = () => {
@@ -146,11 +148,7 @@ const Index = () => {
                   </div>
 
                   <div className="landing_page_club_main_div font-[' Open_Sans']">
-                    hello and hasldfasdfas
-                    a s
-                    as df
-                    as df
-                    asd
+                   
                     <h1>
                       hi there
                     </h1>
@@ -195,6 +193,9 @@ const Index = () => {
 
 
       </div>
+
+      <MainFooter/>
+
 
     </div>
   )

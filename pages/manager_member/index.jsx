@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 import "antd/dist/antd.css";
 import { DatePicker } from 'antd';
-
+import moment from 'moment';
 
 
 import {
@@ -441,7 +441,7 @@ const index = () => {
 
 			<div className="manage_main_div">
 
-				<div className="manage_main_div_left bg-gray-700 ">
+				<div className="manage_main_div_left  ">
 
 					<aside className="w-full" aria-label="Sidebar">
 						<div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-700">
@@ -449,7 +449,7 @@ const index = () => {
 
 								{clubData.map((club) => (
 									<li onClick={() => {
-										// console.log(club.name)
+
 										setClub(club.clubId);
 										onChatGrps();
 									}} >
@@ -474,9 +474,7 @@ const index = () => {
 						<div className=' text-white text-xl'>
 							{club}
 						</div>
-						{/* set */}
-						{/* setManageMembers(true); */}
-						{/* setAddPost(true); */}
+
 						<div>
 
 
@@ -511,15 +509,51 @@ const index = () => {
 								{messagesInGroup.map((msg) => (
 									<div key={msg.id}>
 										{msg.userId === userMail ? (
-											<div className='rightMessages pt-2 pl-3 pr-3 pb-2'>
-												<h1>{msg.description}</h1>
+											<div className='rightMessages pt-1 pl-3 pr-3 pb-1'>
+
+												<div className='rightMessagesText'>
+													<h3 className='f20'>{msg.description}</h3>
+												</div>
+													<div className='timeStamp'>
+														<div className='timeStamp_child'>
+															<h6 className='f12'>
+
+																{moment(msg.createdAt).format('hh:mm A, ')}
+															</h6>
+
+														</div>
+														<div className='timeStamp_child'>
+															<h6 className='f12'>
+																{moment(msg.createdAt).format('DD MMM ')}
+															</h6>
+														</div>
+													</div>
+
 											</div>
 										) : (
-											<div className='leftMessages pt-2 pl-3 pr-3 pb-2'>
-												<p>{msg.userId}</p>
-												<h5 >
-													{msg.description}
-												</h5>
+											<div className='leftMessages pt-1 pl-3 pr-3 pb-1'>
+
+												<div className='leftMessagesText'>
+													<h3 className='f12'>{msg.userId}</h3>
+													<h3 className='f20' >
+														{msg.description}
+													</h3>
+													</div>
+													
+													<div className='timeStamp'>
+														<div className='timeStamp_child'>
+															<h6 className='f12'>
+
+																{moment(msg.createdAt).format('hh:mm A, ')}
+															</h6>
+
+														</div>
+														<div className='timeStamp_child'>
+															<h6 className='f12'>
+																{moment(msg.createdAt).format('DD MMM ')}
+															</h6>
+														</div>
+													</div>
 
 											</div>
 										)}
@@ -561,7 +595,7 @@ const index = () => {
 				<h1 className='text-2xl justify-between  font-sans font-semibold mt-4 mb-2'> Manage Members</h1>
 
 
-				<div className='admin_create_club w-96'>
+				<div className=' w-96'>
 
 
 					<div className="mb-4">
@@ -619,6 +653,7 @@ const index = () => {
 
 
 			{/* For adding a event */}
+
 			<Modal
 				isOpen={addPost}
 
@@ -626,7 +661,7 @@ const index = () => {
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
-				<div className='admin_create_club w-96'>
+				<div className=' w-96'>
 					<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Post</h1>
 						<div className="mb-4">
@@ -679,6 +714,13 @@ const index = () => {
 
 
 
+
+
+
+
+
+
+
 			{/* Detailed Club Info */}
 
 
@@ -692,7 +734,7 @@ const index = () => {
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
-				<div className='admin_create_club '>
+				<div className=' '>
 					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
 
@@ -811,7 +853,7 @@ const index = () => {
 
 
 
-
+			{/* Designation Modal */}
 
 
 			<Modal
@@ -823,7 +865,7 @@ const index = () => {
 				style={customStyles}
 				contentLabel="Example Modal"
 			>
-				<div className='admin_create_club '>
+				<div className=' '>
 					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
 

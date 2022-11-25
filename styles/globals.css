@@ -82,7 +82,8 @@
   display: flex;
   min-width: 250px;
   flex-direction: column;
-  /* background-color: #1b1a47; */
+	/* background-color: white; */
+  background-color: #1b1a47;
   height: 100%;
   /* border-right: 2px #555 solid; */
 }
@@ -152,6 +153,11 @@
   display: none;
 }
 
+.manage_main_div_right::-webkit-scrollbar {
+  display: none;
+}
+
+
 .messagesAll {
   display: flex;
   flex-direction: column;
@@ -159,10 +165,12 @@
 }
 
 .leftMessages {
+	display: flex;
   background-color: white;
   color: black;
   margin: 5px 0px;
   padding-right: 10px;
+	padding-top: 15px;
   overflow-wrap: break-word;
 
   border-radius: 10px;
@@ -174,6 +182,9 @@
 }
 
 .rightMessages {
+	display: flex;
+	padding-top: 15px;
+	
   background-color: white;
   margin: 5px 0px;
   float: right;
@@ -183,6 +194,22 @@
 
   max-width: 60%;
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 12%);
+}
+.timeStamp{
+
+	display: flex;
+	flex-direction: column;
+	width:70px;
+	padding-left: 2px;
+	flex-direction: column;
+	align-items: right;
+	justify-content: bottom;
+}
+
+.timeStamp_child{
+	display: flex;
+	
+	justify-content: right;
 }
 
 .manage_main_div_right_bottom {
@@ -307,7 +334,8 @@
 }
 
 .main_club_page_club_container_mini {
-  display: relative;
+  /* display: relative; */
+	display: flex;
   width: 172px;
   height: 172px;
   margin-left: -37px;
@@ -515,6 +543,24 @@ display: flex;
 {
 	font-size: 32px;
 	padding: 10px;
+}
+
+
+.f12{
+	font-size: 12px;
+	margin:0px;
+}
+
+.f20{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #000000;
 }
 
 
