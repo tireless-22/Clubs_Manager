@@ -7,6 +7,10 @@ import Image from 'next/image';
 import { getFetcher } from '../../utils/swr_utils';
 import { useRouter } from 'next/router';
 import Loading from '../../components/loading'
+import MainFooter from '../../components/mainFooter';
+import uploadButton from "../../Images/uploadButton.svg"
+
+
 
 import {
 	ref,
@@ -41,7 +45,7 @@ const admin = () => {
 	const Router = useRouter();
 
 	const [imageUpload, setImageUpload] = useState(null);
-	
+
 
 	const [clubName, setClubName] = useState("");
 	const [clubDescription, setClubDescription] = useState("");
@@ -85,7 +89,7 @@ const admin = () => {
 
 		}).then((response) => {
 			console.log(response.data);
-			
+
 			Axios.post("/api/mail/userAdded", {
 				mailId: mangerMail.trim(),
 				type: "manager",
@@ -118,7 +122,7 @@ const admin = () => {
 		setError("")
 
 
-		if (imageUpload == null || clubName === '' || clubType==='') {
+		if (imageUpload == null || clubName === '' || clubType === '') {
 			setError('Please fill all the fields')
 			return;
 		}
@@ -134,7 +138,7 @@ const admin = () => {
 				const description = clubDescription;
 				console.log(url)
 
-				
+
 				let fileUrl = imageRef._location.path_;
 				fileUrl = fileUrl.slice(7)
 
@@ -155,7 +159,7 @@ const admin = () => {
 					});
 
 			});
-		});		
+		});
 	};
 
 
@@ -199,121 +203,152 @@ const admin = () => {
 
 
 
-			<div className='admin' >
-				<div className='admin_left'>
-					<div className='admin_create_club'>
-						<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
-							<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Club</h1>
-							<div className="mb-4">
-								<label className="block text-gray-700 text-sm font-bold mb-2" for="Club Name">
-									Club Name
-								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Club Name"
 
-									onChange={(e) => setClubName(e.target.value)}
-								>
-								</input>
-							</div>
+			<div className='admin mt-12 mb-12'>
 
+				<div className='admin_create_club'>
+					<form className=" px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+						<div className='flex_center'>
 
-							<div className="mb-4 ">
-								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-									Club Type
-								</label>
-								<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  onChange={(e) => {
-									setClubType(e.target.value);
-								}}>
-									<option>--- Select Club Type ---</option>
+							<h1 className=' f36 font-sans font-semibold mt-6 mb-2'> <u>Create a Club</u></h1>
+
+						</div>
+						<div className="mb-6 mt-4">
+							<label className="block text-gray-700 text-base font-bold mb-2" for="Club Name">
+								Club Name
+							</label>
+							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Club Name"
+
+								onChange={(e) => setClubName(e.target.value)}
+							>
+							</input>
+						</div>
 
 
-									<option value="Technical Clubs">Technical Clubs</option>
-									<option value="Social Clubs">Social Clubs</option>
-									<option value="All Clubs">All Clubs</option>
+						<div className="mb-6 ">
+							<label className="block text-gray-700 text-base font-bold mb-2" for="username">
+								Club Type
+							</label>
+							<select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => {
+								setClubType(e.target.value);
+							}}>
+								<option>--- Select Club Type ---</option>
 
 
-								</select>
+								<option value="Technical Clubs">Technical Clubs</option>
+								<option value="Social Clubs">Social Clubs</option>
+								<option value="All Clubs">All Clubs</option>
 
 
-							</div>
+							</select>
 
+
+						</div>
+
+
+						<div className="mb-6">
+							<label className="block text-gray-700 text-base font-bold mb-2" for="username">
+								Upload Logo
+							</label>
+
+
+
+							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="file_input" type="file"
+								onChange={(e) => setImageUpload(e.target.files[0])} />
 							
-							<div className="mb-4">
-								<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
-									onChange={(e) => setImageUpload(e.target.files[0])} />
-							</div>
-							<div className="flex items-center justify-between">
-								<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
-									onClick={createClub}
-								>
-									Create a Club
-								</button>
-								<p className='text-red-500'>
-									{error}
-								</p>
-								<p className='text-green-500'>
-									{passMessage}
-								</p>
-							</div>
-						</form>
-					</div>
+					
+						</div>
 
 
 
-					<div className='admin_create_manager'>
-						<form className="bg-white shadow-md rounded px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
-							<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Create a Manager</h1>
-							<div className="mb-4">
-								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-									Manager Email
-								</label>
-								<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Manager Email"
-									onChange={(e) => setMangerMail(e.target.value)}
-								>
-								</input>
-							</div>
-
-							<div className="mb-4">
-								<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-									Select Club
-								</label>
-								<select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => {
-									setSelectClub(e.target.value);
-								}}>
-									<option>---Select Club---</option>
-									{clubNames.map((option) => (
-
-										<option value={option.name}>{option.name}</option>
-									))}
-								</select>
-
-
-							</div>
-
-
-
-
-
-
-
-							<div className="flex items-center justify-between">
-								<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
-									onClick={createManager}
-								>
-									Create a Manager
-								</button>
-								<p className='text-red-500'>
-									{error1}
-								</p>
-								<p className='text-green-500'>
-									{passMessage1}
-								</p>
-							</div>
-						</form>
-					</div>
+						<div className="flex items-center justify-between">
+							<button className="bg-white blue-font   font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+								onClick={createClub}
+							>
+								Create a Club
+							</button>
+							<p className='text-red-500'>
+								{error}
+							</p>
+							<p className='text-green-500'>
+								{passMessage}
+							</p>
+						</div>
+					</form>
 				</div>
-				<div className='admin_right'>
+
+
+
+
+
+
+
+
+
+				<div className='admin_create_manager '>
+					<form className=" px-8  pb-4 mb-2 mt-2 ml-4 mr-4">
+
+						<div className='flex_center'>
+
+					
+							<h1 className=' f36 font-sans font-semibold mt-6 mb-2'> <u>Create a Manager</u></h1>
+
+						</div>
+
+
+
+
+
+						<div className="mb-6 mt-4">
+							<label className="block text-gray-700 text-base font-bold mb-2" for="username">
+								Manager Email
+							</label>
+							<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Manager Email"
+								onChange={(e) => setMangerMail(e.target.value)}
+							>
+							</input>
+						</div>
+
+						<div className="mb-4">
+							<label className="block text-gray-700 text-base font-bold mb-2" for="username">
+								Select Club
+							</label>
+							<select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => {
+								setSelectClub(e.target.value);
+							}}>
+								<option>---Select Club---</option>
+								{clubNames.map((option) => (
+
+									<option value={option.name}>{option.name}</option>
+								))}
+							</select>
+						</div>
+
+						<div className="flex items-center justify-between mt-8">
+							<button className="blue-bg hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+								onClick={createManager}
+							>
+								Create a Manager
+							</button>
+							<p className='text-red-500'>
+								{error1}
+							</p>
+							<p className='text-green-500'>
+								{passMessage1}
+							</p>
+						</div>
+					</form>
+
+
 				</div>
+
 			</div>
+
+
+
+			<MainFooter />
+
+
 		</div>
 
 	)

@@ -28,7 +28,7 @@ const options = {
 	margin: 0,
 	autoplay: true,
 	dots: true,
-	autoplayTimeout: 4000,
+	autoplayTimeout: 400000,
 	smartSpeed: 450,
 	nav: false,
 	responsive: {
@@ -216,7 +216,7 @@ const Club = () => {
 
 										<div className='designation_image_div'>
 
-										<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${designation.fileUrl}?alt=media`} className="designation_image" width={120} height={120} />
+											<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${designation.fileUrl}?alt=media`} className="designation_image" width={120} height={120} />
 										</div>
 
 										<h1>
@@ -224,9 +224,9 @@ const Club = () => {
 										</h1>
 										<h1>
 											{designation.designationType}
-											</h1>
+										</h1>
 
-									
+
 									</div>
 
 
@@ -241,49 +241,49 @@ const Club = () => {
 
 				)}
 
-			
+
 			{/* experiment*/}
 
 			<div className='coursel'>
 
 
 				<OwlCarousel id="customer-testimonoals" className="owl-carousel owl-theme"{...options}>
-			
+
 					{
-					posts.map((post) => (
+						posts.map((post) => (
 
-					<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
-
-
-
-						<div className='ind_club_post_header'>
-							<p className='text-xl pl-6'>{post.header}</p>
-							<p className='text-small'>{post.userId}</p>
+							<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
 
 
-						</div>
+
+								<div className='ind_club_post_header'>
+									<p className='text-xl pl-6'>{post.header}</p>
+									<p className='text-small'>{post.userId}</p>
 
 
-						<div className='ind_club_post_image'>
-							<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
-						</div>
+								</div>
 
 
-						<p className='pl-6'>{post.paragraph}</p>
+								<div className='ind_club_post_image'>
+									<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+								</div>
 
-					</div>
 
-					))
-				}
+								<p className='pl-6'>{post.paragraph}</p>
 
-				
-			</OwlCarousel>
+							</div>
+
+						))
+					}
+
+
+				</OwlCarousel>
 			</div>
-			
 
 
 
 
+{/* 
 			<h1 className='text-3xl pl-6 '>
 
 				Posts
@@ -323,7 +323,7 @@ const Club = () => {
 
 
 
-			</div>
+			</div> */}
 
 
 
