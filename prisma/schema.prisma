@@ -31,7 +31,7 @@ model Designation {
   id              Int      @id @default(autoincrement())
   name            String   @unique()
   fileUrl         String
-  designationType String
+  designationType String @unique()
   club            Club     @relation(fields: [clubId], references: [name])
   clubId          String
   createdAt       DateTime @default(now())

@@ -114,14 +114,7 @@ const index = () => {
 
 	const [detailedClubInfoModal, setDetailedClubInfoModal] = useState(false)
 	
-	{/* about
-clubType
-facebookUrl
-gamil
-instagramUrl
-quatotion
-twitterUrl
-youtubeUrl */}
+
 
 
 	const [aboutTheClub, setAboutTheClub] = useState("")
@@ -137,15 +130,20 @@ youtubeUrl */}
 	const [passMessage3, setPassMessage3] = useState("")
 
 	const [clubDetails, setClubDetails] = useState({})
+
+
+
+
+	const [designationModal, setDesignationModal] = useState(false)
+
+	const [error4, setError4] = useState("")
+	const [passMessage4, setPassMessage4] = useState("")
+
+	const [designationName, setDesignationName] = useState("")
+	const [designationType, setDesignationType] = useState("")
+	const [designationUpload, setDesignationUpload] = useState(null);
+
 	
-
-
-
-
-
-
-
-
 
 
 	useEffect(() => {
@@ -194,12 +192,6 @@ youtubeUrl */}
 
 		memberInGroup()
 
-
-
-
-
-
-
 	}
 
 
@@ -228,15 +220,12 @@ youtubeUrl */}
 		setClubDetails(res2.data);
 		// console.log(res2.data)
 
-
-
-
-
 		memberInGroup()
 
-
-
 	};
+
+
+
 
 	const memberInGroup = async () => {
 		await axios.get(`api/user/getMembers?clubId=${club}`)
@@ -270,9 +259,6 @@ youtubeUrl */}
 		}
 		onChatGrps();
 
-
-
-
 		setTextBoxMessage("");
 	}
 
@@ -294,10 +280,6 @@ youtubeUrl */}
 			getDownloadURL(snapshot.ref).then((url) => {
 				let fileUrl = imageRef._location.path_;
 
-
-
-
-
 				fileUrl = fileUrl.slice(7)
 				axios.post("/api/post/create", {
 					userId: userMail,
@@ -316,30 +298,63 @@ youtubeUrl */}
 
 				setPassMessage1("Post created successfully")
 
-
-
 			});
 		});
 
 	};
 
+	const addDesignation = () => {
+		setError4("")
+
+
+
+		if (designationName == null || designationType === '' || designationUpload === '') {
+			setError4('Please fill all the fields')
+			return;
+		}
+
+
+		const imageRef = ref(storage, `images/${v4()}`);
+
+
+		uploadBytes(imageRef, designationUpload).then((snapshot) => {
+			getDownloadURL(snapshot.ref).then((url) => {
+
+				
+
+
+				let fileUrl = imageRef._location.path_;
+				fileUrl = fileUrl.slice(7)
+				console.log(fileUrl)
+
+
+
+
+				axios.post("/api/club/addDesignation", {
+					name: designationName,
+					designationType: designationType,
+					fileUrl: fileUrl,
+					club: club
+					
+				}).then((response) => {
+					console.log(response.data);
+					setPassMessage4("Added or modified designation")
+					
+				})
+					.catch((error) => {
+						console.log(error);
+					});
+
+			});
+		});
+	};
+
+
+
+
 	const createClubDetails = () => {
 
-		// const [aboutTheClub, setAboutTheClub] = useState("")
-		// const [facebookUrl, setFacebookUrl] = useState("")
-		// const [gmail, setGmail] = useState("")
-		// const [instagramUrl, setInstagramUrl] = useState("")
-		// const [quatotion, setQuatotion] = useState("")
-		// const [twitterUrl, setTwitterUrl] = useState("")
-		// const [youtubeUrl, setYoutubeUrl] = useState("")
-		// const [clubType, setClubType] = useState("")
-
-
-		// if (aboutTheClub === '' || facebookUrl === '' || gmail === '' || instagramUrl === '' || quatotion === '' || twitterUrl === '' || youtubeUrl === '' || clubType === '') {
-		// 	setError3("Please fill all the fields")
-		// 	return;
-
-		// }
+	
 
 		axios.post("/api/club/updateClub", {
 			clubName: club,
@@ -355,28 +370,8 @@ youtubeUrl */}
 
 
 		setPassMessage3("Club details updated successfully")
-
-
-
-		
-
-
-
-
-
-
-
 	
 	}
-
-
-
-
-
-
-	{/* set */ }
-	{/* setManageMembers(true); */ }
-	{/* setAddPost(true); */ }
 
 	const menu = (
 		<Menu>
@@ -392,7 +387,19 @@ youtubeUrl */}
 			<Menu.Item onClick={() => {
 				setDetailedClubInfoModal(true)
 			}}>Club Details</Menu.Item>
+
+			<Menu.Item onClick={() => {
+				setDesignationModal(true)
+			}}>Add Designation</Menu.Item>
+
+
+
+
+
+
 		</Menu>
+
+		
 	);
 
 
@@ -695,15 +702,6 @@ youtubeUrl */}
 				<div className='admin_create_club '>
 					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
 						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
-{/* about
-clubType
-facebookUrl
-gamil
-instagramUrl
-quatotion
-twitterUrl
-youtubeUrl */}
-
 						
 						<div className="mb-4 flex flex-row form_row ">
 							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
@@ -820,7 +818,7 @@ youtubeUrl */}
 							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
 								onClick={createClubDetails}
 							>
-								Create a Club
+								Modify Club Details
 							</button>
 							<p className='text-red-500'>
 								{error3}
@@ -835,6 +833,99 @@ youtubeUrl */}
 
 
 			</Modal>
+
+
+
+
+
+
+			<Modal
+				isOpen={designationModal}
+				// className="w-96"
+
+
+				onRequestClose={() => setDetailedClubInfoModal(false)}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				<div className='admin_create_club '>
+					<form className="modal_form bg-white shadow-md rounded px-8 w-96  pb-4 mb-2 mt-2 ml-2 mr-2">
+						<h1 className='text-2xl  font-sans font-semibold mt-4 mb-2'> Enter Detailed Club Info</h1>
+
+				
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="Heading">
+								Name
+							</label>
+							<input className="shadow appearance-none border rounded ml-1 w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Club Name" type="text" placeholder="Enter Name"
+								
+								onChange={(e) => setDesignationName(e.target.value)}
+							>
+							</input>
+						</div>
+
+
+
+						<div className="mb-4 flex flex-row form_row ">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
+								Designation Type
+							</label>
+							<select className="shadow appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  onChange={(e) => {
+								setDesignationType(e.target.value);
+
+							}}>
+								<option>--- Select Club Type ---</option>
+
+
+								<option value="President">President</option>
+								<option value="Secratary">Secratary</option>
+
+								<option value="Vice president">Vice President</option>
+								<option value="Tresasurer">Tresasurer</option>
+
+							</select>
+
+
+						</div>
+
+						<div className="mb-4">
+							<label className="block text-gray-700 text-sm font-bold mb-2" for="username">
+								Add Profile
+							</label>
+							
+							
+							<input className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
+								onChange={(e) => setDesignationUpload(e.target.files[0])} />
+						</div>
+
+
+
+
+						
+
+				
+
+						<div className="flex items-center justify-between">
+							<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+								onClick={addDesignation}
+							>
+								Add a designation
+							</button>
+							<p className='text-red-500'>
+								{error4}
+							</p>
+							<p className='text-green-500'>
+								{passMessage4}
+							</p>
+
+						</div>
+					</form>
+				</div>
+
+
+			</Modal>
+
 
 
 
