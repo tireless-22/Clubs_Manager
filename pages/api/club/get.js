@@ -13,7 +13,12 @@ export default async function handler(
 	const club = await prisma.club.findFirst({
 		where: {
 			name: req.query.club
+		},
+		include: {
+			userClub: true,
+			event: true
 		}
+
 	})
 
 	console.log(club)

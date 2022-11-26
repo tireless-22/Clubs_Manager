@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react';
+import logo from "../Images/logo.png"
 // top nav bar component with sticky position on top of the page
 const TopNav = () => {
 
@@ -18,8 +19,14 @@ const TopNav = () => {
 
 		<div className='topNav dark:bg-gray-900'>
 			<div className='leftNav'>
+
+				<div className='logoDiv2'>
+
+					<Image src={logo} width={50} height={50} className="logo_image" />
+
+				</div>
 				<p className='text-2xl text-white ml-8 '>
-					Website Name
+					GVP Community
 				</p>
 				<Image src="https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images/rotract.png2572652a-be20-4153-bb95-4f9fd40477dc" width={100} height={100}/>
 			</div>

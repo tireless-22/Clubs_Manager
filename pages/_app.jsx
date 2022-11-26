@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import TopNav from '../components/TopNav'
+// import TopNav from '../components/TopNav'
 
 
 function MyApp({ Component, pageProps }) {

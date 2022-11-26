@@ -16,6 +16,9 @@ export default async function handler(
 			clubId: req.query.club,
 			userId: req.query.user
 
+		},
+		include: {
+			club: true
 		}
 	})
 

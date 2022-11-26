@@ -21,6 +21,18 @@
   top: 0;
 }
 
+.topNav2 {
+  display: flex;
+  /* background-color: rgb(20, 14, 14); */
+  background-color: #00ACED;
+  height: 60px;
+  align-items: center;
+
+  /* position: sticky; */
+  justify-content: space-between;
+  top: 0;
+}
+
 .leftNav {
   display: flex;
   justify-content: center;
@@ -85,7 +97,7 @@
   min-width: 250px;
   flex-direction: column;
 	/* background-color: white; */
-  background-color: #1b1a47;
+  /* background-color: #1b1a47; */
   height: 100%;
   /* border-right: 2px #555 solid; */
 }
@@ -102,7 +114,7 @@
   height: 50px;
 
   /* Modification3 */
-  background-color: #303056;
+  background-color:white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -385,15 +397,7 @@
   justify-content: center;
 }
 
-.club_page_details_box {
-  display: flex;
-  height: 180px;
-  width: 900px;
-  margin: auto;
-  background-color: #303056;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+
 .Designation_main_div {
   display: flex;
   flex-direction: column;
@@ -652,3 +656,78 @@ color: #000000;
 
 
 
+.club_page_details_box{
+ box-shadow: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  display: flex;
+  height: 180px;
+  width: 900px;
+  margin: auto;
+  /* background-color: #303056; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+
+.f40{
+  font-size: 40px;
+}
+
+
+.club_page_details_box_left{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  justify-content: center;
+
+}
+
+
+.club_page_details_box_right{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+}
+
+
+
+.club_page_details_box_left_top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.club_page_details_box_left_bottom{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.logoDiv{
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+}
+
+.logoDiv2{
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  width: 80px;
+}
+
+.logo_image{
+  border-radius: 50%;
+}
+
+
+.flex_row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

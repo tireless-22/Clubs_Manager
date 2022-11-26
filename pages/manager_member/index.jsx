@@ -11,6 +11,8 @@ import { getFetcher } from "../../utils/swr_utils"
 import Image from 'next/image';
 import Link from 'next/link';
 
+import logo from "../../Images/logo.png"
+
 import "antd/dist/antd.css";
 import { DatePicker } from 'antd';
 import moment from 'moment';
@@ -161,7 +163,7 @@ const index = () => {
 
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getByManage?mailId=' + userMail, getFetcher);
-	// console.log(clubData)
+	console.log(clubData)
 
 
 	const scrollToBottom = () => {
@@ -204,7 +206,7 @@ const index = () => {
 
 
 		setClubInfo(res1.data);
-		// console.log("clubInfo", clubInfo)
+		console.log("clubInfo", clubInfo)
 
 
 
@@ -407,11 +409,16 @@ const index = () => {
 	return (
 		<div className='index_main'>
 
-			<div className='topNav dark:bg-gray-900'>
+			<div className='topNav'>
 				<div className='leftNav'>
-					<p className='text-2xl text-white ml-8 '>
-						Website Name
-					</p>
+					<div className='logoDiv2'>
+
+						<Image src={logo} width={50} height={50} className="logo_image" />
+
+					</div>
+					<h1 className='mt-2 text-2xl text-white ml-8 '>
+						GVP Community
+					</h1>
 
 				</div>
 				<div className='rightNav'>
@@ -441,11 +448,19 @@ const index = () => {
 
 			<div className="manage_main_div">
 
-				<div className="manage_main_div_left  ">
+				<div className="manage_main_div_left bg-gray-700  ">
 
 					<aside className="w-full" aria-label="Sidebar">
 						<div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-700">
 							<ul className="space-y-2">
+
+								<div className='flex_center items-center p-4 text-base font-normal text-white rounded-lg dark:text-white  dark:hover:bg-gray-400'>
+									<h1 className='text-xl text-white'>
+
+										GVP CLUBS
+									</h1>
+
+								</div>
 
 								{clubData.map((club) => (
 									<li onClick={() => {
@@ -453,8 +468,15 @@ const index = () => {
 										setClub(club.clubId);
 										onChatGrps();
 									}} >
-										<div className="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-500  dark:hover:bg-gray-400">
-											<span className="ml-3 text-xl">{club.clubId}</span>
+										<div className="flex t items-center p-4 text-base font-normal text-white rounded-lg dark:text-white hover:bg-gray-500 ">
+
+											{/* *********************************** */}
+											<div className='logoDiv'>
+
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" />
+
+											</div>
+											<span className="ml-3 text-white text-xl">{club.clubId}</span>
 
 										</div>
 									</li>
@@ -471,8 +493,19 @@ const index = () => {
 
 					<div className="manage_main_div_right_top pl-2 pr-2 ">
 
-						<div className=' text-white text-xl'>
-							{club}
+						<div className='flex_row text-xl mr-2 text-black'>
+							<div className='logoDiv'>
+								{
+									clubInfo.club &&
+
+									<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubInfo.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" />
+								}
+
+							</div>
+							<div className='ml-2'>
+							{club} 	
+
+							</div>
 						</div>
 
 						<div>
@@ -493,7 +526,7 @@ const index = () => {
 						overflowX: "hidden",
 
 						flex: 11,
-						backgroundColor: "#f6f7f8",
+						backgroundColor: "#74b4e038",
 
 						width: "100%",
 
@@ -514,20 +547,20 @@ const index = () => {
 												<div className='rightMessagesText'>
 													<h3 className='f20'>{msg.description}</h3>
 												</div>
-													<div className='timeStamp'>
-														<div className='timeStamp_child'>
-															<h6 className='f12'>
+												<div className='timeStamp'>
+													<div className='timeStamp_child'>
+														<h6 className='f12'>
 
-																{moment(msg.createdAt).format('hh:mm A, ')}
-															</h6>
+															{moment(msg.createdAt).format('hh:mm A, ')}
+														</h6>
 
-														</div>
-														<div className='timeStamp_child'>
-															<h6 className='f12'>
-																{moment(msg.createdAt).format('DD MMM ')}
-															</h6>
-														</div>
 													</div>
+													<div className='timeStamp_child'>
+														<h6 className='f12'>
+															{moment(msg.createdAt).format('DD MMM ')}
+														</h6>
+													</div>
+												</div>
 
 											</div>
 										) : (
@@ -538,22 +571,22 @@ const index = () => {
 													<h3 className='f20' >
 														{msg.description}
 													</h3>
-													</div>
-													
-													<div className='timeStamp'>
-														<div className='timeStamp_child'>
-															<h6 className='f12'>
+												</div>
 
-																{moment(msg.createdAt).format('hh:mm A, ')}
-															</h6>
+												<div className='timeStamp'>
+													<div className='timeStamp_child'>
+														<h6 className='f12'>
 
-														</div>
-														<div className='timeStamp_child'>
-															<h6 className='f12'>
-																{moment(msg.createdAt).format('DD MMM ')}
-															</h6>
-														</div>
+															{moment(msg.createdAt).format('hh:mm A, ')}
+														</h6>
+
 													</div>
+													<div className='timeStamp_child'>
+														<h6 className='f12'>
+															{moment(msg.createdAt).format('DD MMM ')}
+														</h6>
+													</div>
+												</div>
 
 											</div>
 										)}

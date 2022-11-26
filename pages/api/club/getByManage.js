@@ -20,7 +20,12 @@ export default async function handler(
 	const clubs = await prisma.userClub.findMany({
 		where: {
 			userId: mailId
+		},
+
+		include: {
+			club: true
 		}
+
 		
 
 

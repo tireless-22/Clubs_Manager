@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import SideNav from '../../components/sideNav'
-import TopNav from '../../components/topNav'
+// import TopNav from '../../components/topNav'
 import Loading from '../../components/loading'
 import useSWRImmutable from 'swr/immutable';
 import Image from 'next/image'
@@ -28,7 +28,7 @@ const options = {
 	margin: 0,
 	autoplay: true,
 	dots: true,
-	autoplayTimeout: 400000,
+	autoplayTimeout: 4000,
 	smartSpeed: 450,
 	nav: false,
 	responsive: {
@@ -91,10 +91,15 @@ const Club = () => {
 	return (
 
 		<div className='ind_club_main'>
-			<div className='topNav dark:bg-gray-900'>
+			<div className='topNav2 '>
 				<div className='leftNav'>
+					<div className='logoDiv2'>
+
+						<Image src={logo} width={50} height={50} className="logo_image" />
+
+					</div>
 					<p className='text-2xl text-white ml-8 '>
-						Website Name
+						GVP Community
 					</p>
 				</div>
 				{
@@ -173,7 +178,51 @@ const Club = () => {
 				</div>
 			}
 
-			<div className='club_page_details_box'>
+			<div className='club_page_details_box bg-pink-100 shadow-md rounded mt-4'>
+
+				<div className='club_page_details_box_left'>
+
+					<div className='club_page_details_box_left_bottom'>
+						<h1 className='f48'>
+							{clubData.userClub.length}
+						</h1>
+					</div>
+
+					<div className='club_page_details_box_left_top'>
+						<h1 className='f40'>
+
+							Volunteers
+						</h1>
+					</div>
+
+
+				</div>
+
+				<div className='club_page_details_box_right'>
+					<div className='club_page_details_box_left_bottom'>
+						<h1 className='f48'>
+							{clubData.event.length}
+
+						</h1>
+
+					</div>
+
+
+
+					<div className='club_page_details_box_left_top '>
+						<h1 className='f40'>
+							Events
+
+
+						</h1>
+					</div>
+
+
+
+				</div>
+
+
+
 
 
 			</div>
@@ -182,7 +231,7 @@ const Club = () => {
 
 			{clubData.about &&
 				<div className="club_page_about_us_div_total">
-					<h1 className='text-2xl'>
+					<h1 className='f40 mt-12 mb-8'>
 						<u>
 
 							About {clubData.name}
@@ -203,7 +252,7 @@ const Club = () => {
 				designations && designations.length > 0 && (
 
 					<div className='Designation_main_div'>
-						<h1 className='text-2xl ' style={{ textDecorationColor: "blue" }} >
+						<h1 className='f40 mt-12 mb-8' style={{ textDecorationColor: "blue" }} >
 							<u>
 
 								Board Members
@@ -225,70 +274,86 @@ const Club = () => {
 										<h1>
 											{designation.designationType}
 										</h1>
-
-
 									</div>
-
-
 								)
 								)
 							}
+						</div>
+					</div>
+				)}
 
+			{/* experiment*/}
+
+			{
+
+				posts && posts.length > 0 && (
+
+					<>
+						<div className='flex_center'>
+
+
+							<h1 className='f40 mt-12 mb-2'>
+								<u>
+
+									Upcoming Events
+								</u>
+							</h1>
 
 						</div>
 
-					</div>
+
+
+
+
+
+						<div className='coursel mt-20 mb-20'>
+
+
+							<OwlCarousel id="customer-testimonoals" className="owl-carousel owl-theme"{...options}>
+
+								{
+									posts.map((post) => (
+
+										<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
+
+
+
+											<div className='ind_club_post_header'>
+												<div className="flex_center">
+
+													<p className='text-xl pl-6'>{post.header}</p>
+
+												</div>
+
+
+
+
+											</div>
+
+
+											<div className='ind_club_post_image'>
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+											</div>
+
+
+											<p className='pl-6'>{post.paragraph}</p>
+
+										</div>
+
+									))
+								}
+
+
+							</OwlCarousel>
+						</div>
+
+					</>
 
 				)}
 
 
-			{/* experiment*/}
 
-			<div className='coursel mt-20 mb-20'>
-
-
-				<OwlCarousel id="customer-testimonoals" className="owl-carousel owl-theme"{...options}>
-
-					{
-						posts.map((post) => (
-
-							<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
-
-
-
-								<div className='ind_club_post_header'>
-									<div className="flex_center">
-
-									<p className='text-xl pl-6'>{post.header}</p>
-
-									</div>
-
-									
-
-
-								</div>
-
-
-								<div className='ind_club_post_image'>
-									<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
-								</div>
-
-
-								<p className='pl-6'>{post.paragraph}</p>
-
-							</div>
-
-						))
-					}
-
-
-				</OwlCarousel>
-			</div>
-
-
-
-
-{/* 
+			{/* 
 			<h1 className='text-3xl pl-6 '>
 
 				Posts

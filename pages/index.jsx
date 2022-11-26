@@ -1,5 +1,5 @@
 import React from 'react'
-import TopNav from '../components/topNav'
+// import TopNav from '../components/topNav'
 import useSWRImmutable from 'swr/immutable';
 import Image from 'next/image'
 import { getFetcher } from '../utils/swr_utils';
@@ -67,8 +67,13 @@ const Index = () => {
 
       <div className='topNav '>
         <div className='leftNav'>
+          <div className='logoDiv2'>
+
+            <Image src={logo} width={50} height={50} className="logo_image" />
+
+          </div>
           <p className='text-2xl text-white ml-8 '>
-            Website Name
+            GVP Community
           </p>
         </div>
         {
