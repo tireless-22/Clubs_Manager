@@ -14,7 +14,12 @@ export default async function handler(
 
 	let clubs = await prisma.club.findMany({
 		where: {
-			clubType: "Technical Clubs"
+			clubType: "Technical Clubs",
+			
+		},
+		include: {
+			userClub: true,
+			event: true
 		}
 	})
 

@@ -12,7 +12,16 @@ export default async function handler(
 	console.log(req.body)
 
 
-	let clubs = await prisma.club.findMany({})
+	let clubs = await prisma.club.findMany({
+		
+
+		include: {
+			userClub: true,
+			event: true
+		}
+	
+
+	})
 
 	clubs = clubs.filter(function (item) {
 		return item.name !== "All Clubs"

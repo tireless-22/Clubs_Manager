@@ -97,6 +97,16 @@ model Album {
   createdAt DateTime @default(now()) @map("created_at")
 }
 
+
+
+
+
+
+
+
+
+
+
 // 0 means member
 // 1 means manager
 // 2 means admin

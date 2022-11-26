@@ -6,11 +6,13 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+	
 }
 
 .topNav {
   display: flex;
-  background-color: rgb(20, 14, 14);
+  /* background-color: rgb(20, 14, 14); */
+  background-color: #00ACED;
   height: 60px;
   align-items: center;
 
@@ -257,6 +259,7 @@
 }
 
 .ind_club_main {
+ 
   display: flex;
   flex-direction: column;
 }
@@ -273,9 +276,11 @@
 
 .ind_club_posts {
   display: relative;
-  height: 520px;
+  height: 480px;
   padding-top: 30px;
-  margin-top: -30px;
+  margin-left:20px;
+
+  /* margin-top: -30px; */
   width: 420px;
   display: flex;
   flex-direction: column;
@@ -329,7 +334,7 @@
   width: 378px;
   border-radius: 25px;
   /*   background-color:red; */
-  box-shadow: 4px 13px 30px 1px rgb(252 56 56 / 20%);
+  box-shadow: 0px 0px 90px -52px rgba(0, 0, 0, 0.5);
   border: 1px solid white;
 }
 
@@ -420,10 +425,11 @@
 
 .coursel {
   height: 470px;
-  width: 80%;
+  width: 78%;
   margin-top: 50px;
   margin-left: 10%;
   margin-right: 10%;
+  padding:-40px;
   /* background-color: red; */
   /* border:1px solid black; */
   box-shadow: 0px 0px 90px -52px rgba(0, 0, 0, 0.5);
@@ -440,6 +446,8 @@
   /* border:1px solid black; */
 }
 
+
+
 .owl-carousel {
   height: 100%;
 }
@@ -451,7 +459,13 @@ div.owl-item.active.center {
   /* background-color: blue; */
   padding: 10px;
   opacity: 1;
+  z-index: 5;
   /* border: 1px solid black; */
+}
+
+div.owl-item .cloned{
+  display: none;
+
 }
 
 div.owl-item.cloned.active {
@@ -465,6 +479,15 @@ div.owl-item.active {
   opacity: 0.3;
 }
 
+div.owl-stage-outer{
+  z-index: 1;
+}
+
+div.owl-stage {
+  z-index: 1;
+  margin-top: -15px;;
+
+}
 
 .footer_main{
 display: flex;
@@ -546,6 +569,11 @@ display: flex;
 }
 
 
+.f25{
+  font-size: 25px;
+  
+}
+
 .f12{
 	font-size: 12px;
 	margin:0px;
@@ -571,3 +599,56 @@ color: #000000;
 .blue-bg{
 	background-color: #00ACED;
 }
+
+.landing_page_Mission_div{
+  margin-left:15%;
+  margin-right:15%;
+  width:70%;
+  text-align: center;
+  
+  
+
+}
+
+
+
+.main_club_card_text{
+  display: flex;
+  margin-top: 40px;
+  flex-direction: column;
+  padding-left: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  
+
+}
+
+.card_values_container{
+  /* background-color: red; */
+  /* border:1px solid black; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+}
+.card_values_container_row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px; */
+
+}
+
+
+.orange_button{
+  background-color: #FF8B2DD4;
+}
+
+
+
