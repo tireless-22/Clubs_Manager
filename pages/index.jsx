@@ -12,6 +12,8 @@ import MainFooter from '../components/mainFooter';
 import logo from "../Images/logo.png"
 import moment from 'moment';
 
+import todayEventImage from "../Images/today_events.png"
+
 const Index = () => {
 
   let userMail = "null"
@@ -53,7 +55,7 @@ const Index = () => {
 
 
   if (clubDataError) return <div>failed to load</div>
-  if (!technicalClubs || !socialClubs) return <div><Loading /></div>
+  if (!technicalClubs || !socialClubs || !todayEvent) return <div><Loading /></div>
 
   console.log(userMail)
 
@@ -272,7 +274,7 @@ const Index = () => {
                           Volunteers &nbsp;
                         </div>
                         <div>
-                          
+
 
                           Events
 
@@ -295,6 +297,67 @@ const Index = () => {
         </div>
 
         <div>
+
+
+        </div>
+
+
+        <div className='today_events'>
+
+          <div className='today_events_left'>
+            <div className='mb-8 flex_center'>
+
+              <h1 className='f48'>
+                
+                    Today Club Events
+                  </h1>
+            </div>
+
+            {
+              todayEvent.map((event) => (
+                <div className='today_left_main'>
+
+                  <div class="main_club_page_club_container2">
+                    <div class="main_club_page_club_container_mini2 shadow-lg">
+                      <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${event.club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" />
+                    </div>
+
+                    <div className='today_club_header'>
+                      <h1 className='f24'>
+
+                        {event.header}
+                      </h1>
+
+
+
+
+
+                    </div>
+
+                  </div>
+                  <div className='today_date'>
+                    <h1>
+                    {moment(event.eventDate).format(' DD-MMM / YYYY')}
+
+                    </h1>
+
+
+
+                  </div>
+
+                </div>
+              ))
+            }
+
+
+          </div>
+          <div className='today_events_right'>
+            <Image src={todayEventImage} width={800} height={800} />
+              
+
+
+
+          </div>
 
 
         </div>

@@ -29,6 +29,9 @@ export default async function handler(
 		},
 		orderBy: {
 			eventDate: 'asc'
+		},
+		include: {
+			club: true,
 		}
 
 	})
