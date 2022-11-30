@@ -10,7 +10,7 @@ import background from "../Images/topp.png"
 
 import MainFooter from '../components/mainFooter';
 import logo from "../Images/logo.png"
-
+import moment from 'moment';
 
 const Index = () => {
 
@@ -32,16 +32,20 @@ const Index = () => {
 
   const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/getAll', getFetcher)
 
-  console.log(clubData)
+  // console.log(clubData)
 
   const { data: technicalClubs, error: technicalClubsError } = useSWRImmutable('/api/club/getTechnical', getFetcher)
 
-  console.log(technicalClubs)
+  // console.log(technicalClubs)
 
 
   const { data: socialClubs, error: socialClubsError } = useSWRImmutable('/api/club/getSocial', getFetcher)
 
-  console.log(socialClubs)
+  // console.log(socialClubs)
+
+
+  const { data: todayEvent, error } = useSWRImmutable('/api/post/todayEvents/?' + '&start=' + moment().startOf('day').toJSON() + '&end=' + moment().endOf('day').toJSON(), getFetcher);
+  console.log(todayEvent)
 
 
 
@@ -289,6 +293,18 @@ const Index = () => {
 
 
         </div>
+
+        <div>
+
+
+        </div>
+
+
+
+
+
+
+
 
         <div class="row mt-16">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.3861539630434!2d83.34015411494428!3d17.820523887820432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395bedc7efb603%3A0x87c06caab54e902a!2sGVP%20College%20of%20Engineering%20(Autonomous)!5e0!3m2!1sen!2sin!4v1598167973876!5m2!1sen!2sin" width="100%" height="233" ></iframe>

@@ -6,6 +6,9 @@ import Loading from '../../components/loading'
 import useSWRImmutable from 'swr/immutable';
 import Image from 'next/image'
 import logo from "../../Images/logo.png"
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import moment from 'moment';
 import dynamic from "next/dynamic";
 import { getFetcher } from "../../utils/swr_utils"
 var $ = require("jquery");
@@ -44,6 +47,32 @@ const options = {
 	}
 };
 
+const tooglesGroupId = 'Toggles';
+const valuesGroupId = 'Values';
+const mainGroupId = 'Main';
+
+const getConfigurableProps = () => ({
+	showArrows: boolean('showArrows', true, tooglesGroupId),
+	showStatus: boolean('showStatus', true, tooglesGroupId),
+	showIndicators: boolean('showIndicators', true, tooglesGroupId),
+	infiniteLoop: boolean('infiniteLoop', true, tooglesGroupId),
+	showThumbs: boolean('showThumbs', true, tooglesGroupId),
+	useKeyboardArrows: boolean('useKeyboardArrows', true, tooglesGroupId),
+	autoPlay: boolean('autoPlay', true, tooglesGroupId),
+	stopOnHover: boolean('stopOnHover', true, tooglesGroupId),
+	swipeable: boolean('swipeable', true, tooglesGroupId),
+	dynamicHeight: boolean('dynamicHeight', true, tooglesGroupId),
+	emulateTouch: boolean('emulateTouch', true, tooglesGroupId),
+	autoFocus: boolean('autoFocus', false, tooglesGroupId),
+	thumbWidth: number('thumbWidth', 100, {}, valuesGroupId),
+	selectedItem: number('selectedItem', 0, {}, valuesGroupId),
+	interval: number('interval', 2000, {}, valuesGroupId),
+	transitionTime: number('transitionTime', 500, {}, valuesGroupId),
+	swipeScrollTolerance: number('swipeScrollTolerance', 5, {}, valuesGroupId),
+	ariaLabel: text('ariaLabel', undefined),
+});
+
+
 
 
 
@@ -65,6 +94,10 @@ const Club = () => {
 
 	const { data: clubData, error: clubDataError } = useSWRImmutable('/api/club/get?club=' + club, getFetcher);
 	console.log(clubData)
+
+	const { data: pastEvents, error: postPastEvents } = useSWRImmutable('http://localhost:3000/api/post/pastPost?clubId=' + club, getFetcher);
+	console.log("pastEvents", pastEvents)
+
 
 	const { data: posts, error: postError } = useSWRImmutable('http://localhost:3000/api/post/getByClub?clubId=' + club, getFetcher);
 	console.log("posts", posts)
@@ -285,66 +318,130 @@ const Club = () => {
 			{/* experiment*/}
 
 			{
-
 				posts && posts.length > 0 && (
-
 					<>
 						<div className='flex_center'>
-
-
 							<h1 className='f40 mt-12 mb-2'>
 								<u>
-
 									Upcoming Events
 								</u>
 							</h1>
 
 						</div>
 
-
-
-
-
-
-						<div className='coursel mt-20 mb-20'>
-
-
-							<OwlCarousel id="customer-testimonoals" className="owl-carousel owl-theme"{...options}>
-
+						<div className='coursel mb-4 '>
+							<Carousel
+								infiniteLoop
+								autoPlay
+								showArrows={true}
+							>
 								{
-									posts.map((post) => (
-
-										<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
-
-
-
-											<div className='ind_club_post_header'>
-												<div className="flex_center">
-
-													<p className='text-xl pl-6'>{post.header}</p>
-
-												</div>
-
-
-
-
-											</div>
-
-
+									posts.map((post, index) => (
+										<div className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
 											<div className='ind_club_post_image'>
 												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
 											</div>
 
+											<div className='ind_club_post_data'>
+												<div className='ind_club_header'>
+													<div>
+														<h1 className='f36'>
+															{post.header}
+														</h1>
+													</div>
+													<div className='ind_club_para'>
+														<p>
+															{post.paragraph}
 
-											<p className='pl-6'>{post.paragraph}</p>
+														</p>
+													</div>
+												</div>
 
+												<div className='ind_club_footer'>
+													<div>
+														Event Date:
+
+														{moment(post.eventDate).format(' DD-MMM / YYYY')}
+													</div>
+
+													<div>
+														Posted By:
+														{post.userId}
+
+													</div>
+												</div>
+											</div>
 										</div>
-
 									))
 								}
+							</Carousel>
+						</div>
+
+					</>
+
+				)}
+			
 
 
-							</OwlCarousel>
+
+			{
+				pastEvents && pastEvents.length > 0 && (
+					<>
+						<div className='flex_center'>
+							<h1 className='f40 mt-12 mb-2'>
+								<u>
+									Past Events
+								</u>
+							</h1>
+
+						</div>
+
+						<div className='coursel mb-4 '>
+							<Carousel
+								infiniteLoop
+								autoPlay
+								showArrows={true}
+							>
+								{
+									pastEvents.map((post, index) => (
+										<div className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
+											<div className='ind_club_post_image'>
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+											</div>
+
+											<div className='ind_club_post_data'>
+												<div className='ind_club_header'>
+													<div>
+														<h1 className='f36'>
+															{post.header}
+														</h1>
+													</div>
+													<div className='ind_club_para'>
+														<p>
+															{post.paragraph}
+
+														</p>
+													</div>
+												</div>
+
+												<div className='ind_club_footer'>
+													<div>
+														Event Date:
+
+														{moment(post.eventDate).format(' DD-MMM / YYYY')}
+													</div>
+
+													<div>
+														Posted By:
+														{post.userId}
+
+													</div>
+												</div>
+											</div>
+										</div>
+									))
+								}
+							</Carousel>
 						</div>
 
 					</>
@@ -353,47 +450,8 @@ const Club = () => {
 
 
 
-			{/* 
-			<h1 className='text-3xl pl-6 '>
+		
 
-				Posts
-
-			</h1>
-
-			<div className='ind_post_main pl-4'>
-
-
-				{
-					posts.length !== 0 &&
-					posts.map((post) => (
-
-						<div className='ind_club_posts bg-white shadow-md rounded    mb-2 mt-2 ml-2 mr-2' >
-
-
-
-							<div className='ind_club_post_header'>
-								<p className='text-xl pl-6'>{post.header}</p>
-								<p className='text-small'>{post.userId}</p>
-
-
-							</div>
-
-
-							<div className='ind_club_post_image'>
-								<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
-							</div>
-
-
-							<p className='pl-6'>{post.paragraph}</p>
-
-						</div>
-
-					))
-				}
-
-
-
-			</div> */}
 
 
 			<div class="row">

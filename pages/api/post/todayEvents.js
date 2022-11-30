@@ -11,31 +11,31 @@ export default async function handler(
 	console.log("hello there ************************************************************")
 	console.log(req.body)
 
-
-
-	const name = req.query.clubId;
+	// console.log(moment().startOf('day').toDate())
 
 
 
-	const messages = await prisma.event.findMany({
+	const { start, end } = req.query;
+	
+	console.log(start)
+	console.log(end)
+
+	const events = await prisma.event.findMany({
 		where: {
-			clubId: name,
 			eventDate: {
-				gte: moment().startOf('day').toDate() || moment().startOf('day').toDate(),
-			
-			},
+				gte: new Date(start),
+				lte: new Date(end)
+			}
 		},
 		orderBy: {
 			eventDate: 'asc'
 		}
-		
-
 
 	})
 
 
 
-	res.status(200).json(messages)
+res.status(200).json(events)
 
 
 

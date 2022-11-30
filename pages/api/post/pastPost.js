@@ -21,14 +21,14 @@ export default async function handler(
 		where: {
 			clubId: name,
 			eventDate: {
-				gte: moment().startOf('day').toDate() || moment().startOf('day').toDate(),
-			
+				lte: moment().startOf('day').toDate(),
+
 			},
 		},
 		orderBy: {
 			eventDate: 'asc'
 		}
-		
+
 
 
 	})
