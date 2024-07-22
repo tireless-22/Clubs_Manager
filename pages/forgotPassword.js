@@ -8,7 +8,7 @@ import TopNav from '../components/topNav'
 
 
 
-const forgotPassword = () => {
+const ForgotPassword = () => {
 	
 
 	const [email, setEmail] = React.useState('')
@@ -127,4 +127,4 @@ const forgotPassword = () => {
 	)
 }
 
-export default forgotPassword
+export default ForgotPassword

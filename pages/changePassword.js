@@ -3,7 +3,7 @@ import TopNav from '../components/topNav'
 import axios from 'axios'
 
 
-const changePassword = () => {
+const ChangePassword = () => {
 
 	const [email, setEmail] = React.useState('')
 	const [passwrord, setPassword] = React.useState('')
@@ -178,4 +178,4 @@ const changePassword = () => {
 	)
 }
 
-export default changePassword
+export default ChangePassword

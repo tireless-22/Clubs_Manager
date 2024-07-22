@@ -9,7 +9,7 @@ import axios from 'axios'
 // Login system with tailwind css
 
 
-const temp = () => {
+const Login = () => {
 
 	const [email, setEmail] = React.useState('')
 	const [passwrord, setPassword] = React.useState('')
@@ -131,4 +131,4 @@ const temp = () => {
 	)
 }
 
-export default temp
+export default Login

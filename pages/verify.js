@@ -5,7 +5,7 @@ import TopNav from '../components/topNav'
 import axios from 'axios'
 
 
-const verify = () => {
+const Verify = () => {
 	const router = useRouter()
 	const { q } = router.query
 	console.log(q)
@@ -137,4 +137,4 @@ const verify = () => {
 	)
 }
 
-export default verify
+export default Verify

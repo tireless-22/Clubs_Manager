@@ -52,7 +52,7 @@ const customStyles = {
 
 
 
-const index = () => {
+const Index = () => {
 
 	// const router = useRouter();
 
@@ -151,7 +151,7 @@ const index = () => {
 	useEffect(() => {
 		onChatGrps()
 
-	}, [club]);
+	},[club]);
 
 
 	useEffect(() => {
@@ -413,7 +413,7 @@ const index = () => {
 				<div className='leftNav'>
 					<div className='logoDiv2'>
 
-						<Image src={logo} width={50} height={50} className="logo_image" />
+						<Image src={logo} width={50} height={50} className="logo_image" alt="image here"/>
 
 					</div>
 					<h1 className='mt-2 text-2xl text-white ml-8 '>
@@ -463,7 +463,7 @@ const index = () => {
 								</div>
 
 								{clubData.map((club) => (
-									<li onClick={() => {
+									<li key={club} onClick={() => {
 
 										setClub(club.clubId);
 										onChatGrps();
@@ -473,7 +473,7 @@ const index = () => {
 											{/* *********************************** */}
 											<div className='logoDiv'>
 
-												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" />
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" alt="image here" />
 
 											</div>
 											<span className="ml-3 text-white text-xl">{club.clubId}</span>
@@ -498,7 +498,7 @@ const index = () => {
 								{
 									clubInfo.club &&
 
-									<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubInfo.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" />
+									<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubInfo.club.fileUrl}?alt=media`} width={50} height={50} className="logo_image" alt="image here"/>
 								}
 
 							</div>
@@ -984,4 +984,4 @@ const index = () => {
 	)
 }
 
-export default index
+export default Index

@@ -29,7 +29,7 @@ const MainFooter = () => {
 				</div>
 				<div className='footer_right'>
 
-					<Image src={logo} width={200} height={200} />
+					<Image src={logo} width={200} height={200} alt="image here" />
 				</div>
 
 

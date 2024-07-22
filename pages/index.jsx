@@ -75,7 +75,7 @@ const Index = () => {
         <div className='leftNav'>
           <div className='logoDiv2'>
 
-            <Image src={logo} width={50} height={50} className="logo_image" />
+            <Image src={logo} width={50} height={50} className="logo_image" alt="image here"/>
 
           </div>
           <p className='text-2xl text-white ml-8 '>
@@ -137,7 +137,7 @@ const Index = () => {
 
 
       <div className="landing_main_div">
-        <Image src={background} />
+        <Image src={background} alt="image here" />
 
 
 
@@ -188,7 +188,7 @@ const Index = () => {
 
 
                   <div class="main_club_page_club_container_mini">
-                    <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" />
+                    <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" alt="image here"/>
                   </div>
 
                   <div className='main_club_card_text'>
@@ -248,7 +248,7 @@ const Index = () => {
               <Link href={`/clubs/${club.name}`} key={club.id}>
                 <div class="main_club_page_club_container">
                   <div class="main_club_page_club_container_mini">
-                    <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" />
+                    <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" alt="image here"/>
                   </div>
 
                   <div className='main_club_card_text'>
@@ -315,11 +315,11 @@ const Index = () => {
 
             {
               todayEvent.map((event) => (
-                <div className='today_left_main'>
+                <div key={event} className='today_left_main'>
 
                   <div class="main_club_page_club_container2">
                     <div class="main_club_page_club_container_mini2 shadow-lg">
-                      <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${event.club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" />
+                      <Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${event.club.fileUrl}?alt=media`} width={200} height={200} className="landing_page_round_image" alt="image here"/>
                     </div>
 
                     <div className='today_club_header'>
@@ -352,7 +352,7 @@ const Index = () => {
 
           </div>
           <div className='today_events_right'>
-            <Image src={todayEventImage} width={800} height={800} />
+            <Image src={todayEventImage} width={800} height={800} alt="image here"/>
               
 
 

@@ -128,7 +128,7 @@ const Club = () => {
 				<div className='leftNav'>
 					<div className='logoDiv2'>
 
-						<Image src={logo} width={50} height={50} className="logo_image" />
+						<Image src={logo} width={50} height={50} className="logo_image" alt="image here"/>
 
 					</div>
 					<p className='text-2xl text-white ml-8 '>
@@ -192,7 +192,7 @@ const Club = () => {
 
 			{/* club logo and name */}
 			<div className="flex_center">
-				<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} className="club_page_main_logo" width={300} height={300} />
+				<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${clubData.fileUrl}?alt=media`} className="club_page_main_logo" width={300} height={300} alt="image here"/>
 
 			</div>
 
@@ -294,11 +294,11 @@ const Club = () => {
 						<div className='club_page_designations'>
 							{
 								designations.map((designation, index) => (
-									<div className='designation_box'>
+									<div key={index} className='designation_box'>
 
 										<div className='designation_image_div'>
 
-											<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${designation.fileUrl}?alt=media`} className="designation_image" width={120} height={120} />
+											<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${designation.fileUrl}?alt=media`} className="designation_image" width={120} height={120} alt="image here"/>
 										</div>
 
 										<h1>
@@ -337,9 +337,9 @@ const Club = () => {
 							>
 								{
 									posts.map((post, index) => (
-										<div className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
+										<div key={index} className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
 											<div className='ind_club_post_image'>
-												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} alt="image here" />
 											</div>
 
 											<div className='ind_club_post_data'>
@@ -404,9 +404,9 @@ const Club = () => {
 							>
 								{
 									pastEvents.map((post, index) => (
-										<div className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
+										<div key={index} className='ind_club_posts bg-white shadow-md rounded pt-2 pb-2 pl-2 pr-2' >
 											<div className='ind_club_post_image'>
-												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} />
+												<Image src={`https://firebasestorage.googleapis.com/v0/b/contest-4f331.appspot.com/o/images%2F${post.fileUrl}?alt=media`} width={300} height={300} alt="image here"/>
 											</div>
 
 											<div className='ind_club_post_data'>
@@ -478,7 +478,7 @@ const Club = () => {
 					</div>
 					<div className='footer_right'>
 
-						<Image src={logo} width={200} height={200} />
+						<Image src={logo} width={200} height={200} alt="image here"/>
 					</div>
 
 
